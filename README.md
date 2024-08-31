@@ -39,7 +39,7 @@
 
 > ADD PROJECT OVERVIEW
 
-## Packages
+## Virtual Environment
 
 To create a virtual environment capable of withstanding the Web Application make sure to have Anaconda installed and perform the following commands.
 
@@ -51,7 +51,11 @@ Activate the new environment:
 
     conda activate NodeJS
 
-Install some other packages via npm:
+For the next command make sure to be inside the Server Client Multiplayer Game Folder
+
+    cd ./"Server Client Multiplayer Game"
+
+and therefore install some other packages via npm:
 
     npm install express@4.18.2 nodemon@3.1.4
 
