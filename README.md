@@ -51,13 +51,18 @@ Activate the new environment:
 
     conda activate NodeJS
 
-For the next command make sure to be inside the Server Client Multiplayer Game Folder
+For the next command make sure to be inside the Server Client Multiplayer Game Folder to therefore install some other packages via npm [Node Package Manager].
 
     cd ./"Server Client Multiplayer Game"
 
-and therefore install some other packages via npm:
+To install express execute:
 
-    npm install express@4.18.2 nodemon@3.1.4
+    npm install express@4.18.2 --save-exact
+    
+To install nodemon globally, which automatically refreshes the web page every time the source code is changed, make sure to use:
+
+    npm install -g nodemon@3.1.4
+
 
 ## Project Demo
 
