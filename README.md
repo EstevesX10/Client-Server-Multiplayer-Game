@@ -39,6 +39,22 @@
 
 > ADD PROJECT OVERVIEW
 
+## Packages
+
+To create a virtual environment capable of withstanding the Web Application make sure to have Anaconda installed and perform the following commands.
+
+To create the NodeJS conda environment:
+
+    conda env create -f NodeJS.yml
+
+Activate the new environment:
+
+    conda activate NodeJS
+
+Install some other packages via npm:
+
+    npm install express@4.18.2 nodemon@3.1.4
+
 ## Project Demo
 
 > ADD PROJECT DEMO
