@@ -45,7 +45,7 @@ To start the Web Application and interact with the project, make sure to execute
 
     node app.js
 
-And access the [local host on port 3000](localhost:3000).
+And access the [local host on port 3000](http://localhost:3000/).
 
 ## Project Demo
 
