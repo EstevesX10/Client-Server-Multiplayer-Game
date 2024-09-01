@@ -1,3 +1,5 @@
+import {Player} from "./classes/Player.js"
+
 const canvas = document.querySelector('canvas')
 const c = canvas.getContext('2d')
 
@@ -36,7 +38,7 @@ socket.on('updatePlayers', (backendPlayers) => {
   for (const id in frontendPlayers){
     // If the current frontend player does not exist on the backend, we must delete it
     if(!backendPlayers[id]){
-      
+
       // Delete the player from the frontend
       delete frontendPlayers[id]
     }
