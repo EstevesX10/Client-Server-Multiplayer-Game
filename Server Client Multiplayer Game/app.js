@@ -13,6 +13,7 @@ const { Server } = require('socket.io')
 // Defining a Socket.io sever 
 const io = new Server(server, { pingInterval : 2000, pingTimeout: 5000 })
 
+// Define the Connection Port
 const port = 3000
 
 // Make any file inside the public directory available to anybody
