@@ -11,7 +11,7 @@ const server = http.createServer(app)
 const { Server } = require('socket.io')
 
 // Defining a Socket.io sever 
-const io = new Server(server)
+const io = new Server(server, { pingInterval : 2000, pingTimeout: 5000 })
 
 const port = 3000
 
