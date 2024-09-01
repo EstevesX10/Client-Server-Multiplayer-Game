@@ -35,13 +35,24 @@ io.on('connection', (socket) => {
 
   // Create the property of socket.id on the players object
   players[socket.id] = {
-    x:100,
-    y:100
+    x:500 * Math.random(),
+    y:500 * Math.random()
   }
 
   // Note: If we wanted to make an event to the player who connected, we would use socket.emit(...)
   // Broadcast the state of every player to every single client's frontend
   io.emit('updatePlayers', players)
+
+  // When a user is disconnected, we call this callback function
+  socket.on('disconnect', (reason) => {
+    console.log(reason)
+
+    // When someone leaves, we want to make sure that it's player is deleted from the players object
+    delete players[socket.id]
+
+    // Call the updatePlayer event
+    io.emit('updatePlayers', players)
+  })
 
   console.log(players)
 })
