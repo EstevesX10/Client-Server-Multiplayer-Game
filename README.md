@@ -6,7 +6,7 @@
 </p>
 
 <p align="center" width="100%">
-    <img src="_ADD_PATH_HERE_" width="60%" height="60%" />
+    <img src="./Server Client Multiplayer Game/Assets/ClientServerModel.png" width="60%" height="60%" />
 </p>
 
 <div align="center">
@@ -39,30 +39,13 @@
 
 > ADD PROJECT OVERVIEW
 
-## Virtual Environment
+## Project Execution
 
-To create a virtual environment capable of withstanding the Web Application make sure to have Anaconda installed and perform the following commands.
+To start the Web Application and interact with the project, make sure to execute:
 
-To create the NodeJS conda environment:
+    node app.js
 
-    conda env create -f NodeJS.yml
-
-Activate the new environment:
-
-    conda activate NodeJS
-
-For the next command make sure to be inside the Server Client Multiplayer Game Folder to therefore install some other packages via npm [Node Package Manager].
-
-    cd ./"Server Client Multiplayer Game"
-
-To install express execute:
-
-    npm install express@4.18.2 --save-exact
-    
-To install nodemon globally, which automatically refreshes the web page every time the source code is changed, make sure to use:
-
-    npm install -g nodemon@3.1.4
-
+And access the [local host on port 3000](localhost:3000).
 
 ## Project Demo
 
