@@ -23,12 +23,18 @@ For the next command make sure to be inside the ``Server Client Multiplayer Game
 
 To install ``express`` execute:
 
-    npm install express@4.18.2 --save-exact
+    npm install express@4.19.2 --save-exact
     
 To install ``nodemon`` globally, which **automatically refreshes the web page** every time the source code is **changed**, make sure to use:
 
     npm install -g nodemon@3.1.4
 
+
+To install socket.io, which allows us to connect to the backend server and then broadcast events to anyone connected to it, you can use:
+
+    npm install socket.io@4.7.5 --save-exact
+
+This package helps to track the position of multiple players within each individual screen. Instead of creating a player based on a frontend file, we aim to create multiple players based on the server events.
 
 <div align="right">
 <sub>
