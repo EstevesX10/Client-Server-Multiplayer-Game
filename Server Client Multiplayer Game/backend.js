@@ -24,38 +24,38 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html') // Send the index.html
 })
 
-// Define the Players Object - Information that is going to be broadcasted
-const players = {}
+// Define the backEndPlayers Object - Information that is going to be broadcasted
+const backEndPlayers = {}
 
 // Listen for a Connection Event
 // Establish connection between frontend and backend [In order to work the request must be made from the frontend]
 io.on('connection', (socket) => {
   console.log('A User connected')
 
-  // Populate the Players Object
+  // Populate the backEndPlayers Object
 
-  // Create the property of socket.id on the players object
-  players[socket.id] = {
+  // Create the property of socket.id on the backEndPlayers object
+  backEndPlayers[socket.id] = {
     x:500 * Math.random(),
     y:500 * Math.random()
   }
 
   // Note: If we wanted to make an event to the player who connected, we would use socket.emit(...)
   // Broadcast the state of every player to every single client's frontend
-  io.emit('updatePlayers', players)
+  io.emit('updatePlayers', backEndPlayers)
 
   // When a user is disconnected, we call this callback function
   socket.on('disconnect', (reason) => {
     console.log(reason)
 
-    // When someone leaves, we want to make sure that it's player is deleted from the players object
-    delete players[socket.id]
+    // When someone leaves, we want to make sure that it's player is deleted from the backEndPlayers object
+    delete backEndPlayers[socket.id]
 
     // Call the updatePlayer event
-    io.emit('updatePlayers', players)
+    io.emit('updatePlayers', backEndPlayers)
   })
 
-  console.log(players)
+  console.log(backEndPlayers)
 })
 
 // Listening to Sever Events
