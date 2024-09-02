@@ -24,7 +24,11 @@ const frontEndProjectiles = {}
 // Connect Event - By default this event is triggered when the socket is created
 socket.on('connect', () =>{
   // Transmit the window / canvas width and height to the backend
-  socket.emit('initCanvas', { canvasWidth: canvas.width, canvasHeight: canvas.height })
+  socket.emit('initCanvas', { 
+    canvasWidth: canvas.width,
+    canvasHeight: canvas.height,
+    devicePixelRatio
+  })
 })
 
 // Receive the updateProjectiles Event

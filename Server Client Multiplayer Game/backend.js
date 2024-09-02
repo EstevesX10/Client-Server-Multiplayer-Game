@@ -33,6 +33,9 @@ const backEndProjectiles = {}
 // Create a Variable for the Speed
 const SPEED = 10
 
+// Create a Variable for the Radius
+const RADIUS = 10
+
 // Define a global variable for the projectile IDs - help distiguish them when we want to delete them
 let projectileID = 0
 
@@ -56,11 +59,17 @@ io.on('connection', (socket) => {
   io.emit('updatePlayers', backEndPlayers)
 
   // Listen to the connect event and retrieve the canvas dimensions
-  socket.on('initCanvas', ({ canvasWidth, canvasHeight }) => {
+  socket.on('initCanvas', ({ canvasWidth, canvasHeight, devicePixelRatio}) => {
     // Add the canvas dimensions as new properties to the backEndPlayers object
     backEndPlayers[socket.id].canvas = {
       width: canvasWidth,
       height: canvasHeight
+    }
+
+    // Add the player radius
+    backEndPlayers[socket.id].radius = RADIUS
+    if (devicePixelRatio > 1){
+      backEndPlayers[socket.id].radius = 2 * RADIUS
     }
   })
 
@@ -146,6 +155,34 @@ setInterval(() => {
     ){
       // Remove the projectile from the Projectiles object
       delete backEndProjectiles[id]
+      continue
+    }
+
+    // Compare every projectile to every player that is on the screen
+    // If there is one projectile touching the player, then we must remove both from the game
+    for (const playerID in backEndPlayers){
+      // Get current backend player
+      const backEndPlayer = backEndPlayers[playerID]
+
+      // Calculate the distance between the projectile and the player
+      const distance = Math.hypot(
+        backEndProjectiles[id].x - backEndPlayer.x,
+        backEndProjectiles[id].y - backEndPlayer.y
+      )
+
+      // If the player and the projectile (from a different player) are touching then we ought to remove them
+      if (
+        distance < (projectileRadius + backEndPlayer.radius) && 
+        backEndProjectiles[id].playerID !== playerID
+      ){
+        // Delete the backend projectile
+        delete backEndProjectiles[id]
+
+        // Delete the player from the backend
+        delete backEndPlayers[playerID]
+
+        break
+      }
     }
   }
 
