@@ -18,6 +18,9 @@ const y = canvas.height / 2
 // Define a frontend players object to render all the players onto the screen
 const frontEndPlayers = {}
 
+// Define a frontend projectiles Array to store the information regarding projectiles
+const frontEndProjectiles = []
+
 // Receive the updatePlayers Event
 socket.on('updatePlayers', (backEndPlayers) => {
   // Add connected players
