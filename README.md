@@ -43,7 +43,7 @@
 
 To start the Web Application and interact with the project, make sure to execute:
 
-    nodemon app.js
+    nodemon backend.js
 
 And access the [local host on port 3000](http://localhost:3000/).
 
