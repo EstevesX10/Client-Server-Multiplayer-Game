@@ -27,6 +27,9 @@ app.get('/', (req, res) => {
 // Define the backEndPlayers Object - Information that is going to be broadcasted
 const backEndPlayers = {}
 
+// Create a Variable for the Speed
+const SPEED = 10
+
 // Listen for a Connection Event
 // Establish connection between frontend and backend [In order to work the request must be made from the frontend]
 io.on('connection', (socket) => {
@@ -60,19 +63,19 @@ io.on('connection', (socket) => {
   socket.on('keydown', (keyCode) => {
     switch (keyCode) {
       case 'KeyW':
-      backEndPlayers[socket.id].y -= 5
+      backEndPlayers[socket.id].y -= SPEED
       break
 
     case 'KeyD':
-      backEndPlayers[socket.id].x += 5
+      backEndPlayers[socket.id].x += SPEED
       break
 
     case 'KeyS':
-      backEndPlayers[socket.id].y += 5
+      backEndPlayers[socket.id].y += SPEED
       break
     
     case 'KeyA':
-      backEndPlayers[socket.id].x -= 5
+      backEndPlayers[socket.id].x -= SPEED
       break
     }
   })
