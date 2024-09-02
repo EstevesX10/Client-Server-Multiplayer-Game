@@ -14,18 +14,18 @@ const x = canvas.width / 2
 const y = canvas.height / 2
 
 // Define a frontend players object to render all the players onto the screen
-const frontendPlayers = {}
+const frontEndPlayers = {}
 
 // Receive the updatePlayers Event
-socket.on('updatePlayers', (backendPlayers) => {
+socket.on('updatePlayers', (backEndPlayers) => {
   // Add connected players
-  for (const id in backendPlayers){
-    // Iterate through all the backendPlayers
-    const backendPlayer = backendPlayers[id]
+  for (const id in backEndPlayers){
+    // Iterate through all the backEndPlayers
+    const backendPlayer = backEndPlayers[id]
 
     // If the current backend player does not exist on the frontend
-    if(!frontendPlayers[id]){
-      frontendPlayers[id] = new Player({
+    if(!frontEndPlayers[id]){
+      frontEndPlayers[id] = new Player({
         x: backendPlayer.x,
         y: backendPlayer.y,
         radius: 10, 
@@ -35,12 +35,11 @@ socket.on('updatePlayers', (backendPlayers) => {
   }
 
   // Remove disconnected players
-  for (const id in frontendPlayers){
+  for (const id in frontEndPlayers){
     // If the current frontend player does not exist on the backend, we must delete it
-    if(!backendPlayers[id]){
-
+    if(!backEndPlayers[id]){
       // Delete the player from the frontend
-      delete frontendPlayers[id]
+      delete frontEndPlayers[id]
     }
   }
 })
@@ -52,9 +51,9 @@ function animate() {
   c.fillRect(0, 0, canvas.width, canvas.height)
   
   // Display all the Players
-  for (const id in frontendPlayers){
-    const player = frontendPlayers[id]
-    player.draw()
+  for (const id in frontEndPlayers){
+    const frontEndPlayer = frontEndPlayers[id]
+    frontEndPlayer.draw()
   }
 }
 
