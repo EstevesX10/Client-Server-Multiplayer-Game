@@ -37,6 +37,25 @@ socket.on('updatePlayers', (backEndPlayers) => {
       // Update the frontEndPlayer based on the movements performed in the backend server
       frontEndPlayers[id].x = backEndPlayer.x
       frontEndPlayers[id].y = backEndPlayer.y
+
+      if (id === socket.id){ // Call the Server Reconciliation code [Used to fix lag]
+        // Get the last back end input index [index aka sequence number]
+        const lastBackEndInputIndex = playerInputs.findIndex(input => {
+          // Return the last sequence number / id processed in the backend server
+          return backEndPlayer.sequenceNumber === input.sequenceNumber
+        })
+
+        if (lastBackEndInputIndex >= 0){
+          // Splice out all the unnecessary events (Inputs: idx to start and stop removing numbers)
+          playerInputs.splice(0, lastBackEndInputIndex + 1)
+        }
+
+        // Perform the remaining events
+        playerInputs.forEach(input => {
+          frontEndPlayers[id].x += input.dx
+          frontEndPlayers[id].y += input.dy
+        })
+      }
     }
   }
 
@@ -85,42 +104,72 @@ const keys = {
 // Create a Variable for the Speed
 const SPEED = 10
 
+// Define the players inputs as a Array
+const playerInputs = []
+
+// Defining a variable to keep track of the amount of keys that have been pressed
+let sequenceNumber = 0
+
 // Use a frontEnd SetInterval
 setInterval(() => {
   if (keys.w.pressed){
+    // Update the sequenceNumber since a key has been pressed
+    sequenceNumber++
+
+    // Add the input to the playerInputs Array (The current key press counter and the velocity in both x and y axis)
+    playerInputs.push({ sequenceNumber, dx: 0, dy: -SPEED })
+
     // Client Sided Prediction
     // Predict Up Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend  
     frontEndPlayers[socket.id].y -= SPEED
 
     // Submit the KeyW event to the backend
-    socket.emit('keydown', 'KeyW')
+    socket.emit('keydown', { keyCode: 'KeyW', sequenceNumber })
   }
 
   if (keys.a.pressed){
+    // Update the sequenceNumber since a key has been pressed
+    sequenceNumber++
+
+    // Add the input to the playerInputs Array (The current key press counter and the velocity in both x and y axis)
+    playerInputs.push({ sequenceNumber, dx: -SPEED, dy: 0 })
+
     // Client Sided Prediction
     // Predict Left Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
     frontEndPlayers[socket.id].x -= SPEED
 
     // Submit the KeyA event to the backend
-    socket.emit('keydown', 'KeyA')
+    socket.emit('keydown', { keyCode: 'KeyA', sequenceNumber })
   }
 
   if (keys.s.pressed){
+    // Update the sequenceNumber since a key has been pressed
+    sequenceNumber++
+
+    // Add the input to the playerInputs Array (The current key press counter and the velocity in both x and y axis)
+    playerInputs.push({ sequenceNumber, dx: 0, dy: SPEED })
+
     // Client Sided Prediction
     // Predict Down Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
     frontEndPlayers[socket.id].y += SPEED
 
     // Submit the KeyS event to the backend
-    socket.emit('keydown', 'KeyS')
+    socket.emit('keydown', { keyCode: 'KeyS', sequenceNumber })
   }
 
   if (keys.d.pressed){
+    // Update the sequenceNumber since a key has been pressed
+    sequenceNumber++
+
+    // Add the input to the playerInputs Array (The current key press counter and the velocity in both x and y axis)
+    playerInputs.push({ sequenceNumber, dx: SPEED, dy: 0 })
+
     // Client Sided Prediction
     // Predict Rights Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
     frontEndPlayers[socket.id].x += SPEED
 
     // Submit the KeyD event to the backend
-    socket.emit('keydown', 'KeyD')
+    socket.emit('keydown', { keyCode: 'KeyD', sequenceNumber })
   }
 }, 15)
 

@@ -41,7 +41,8 @@ io.on('connection', (socket) => {
   backEndPlayers[socket.id] = {
     x:500 * Math.random(),
     y:500 * Math.random(),
-    color: `hsl(${360 * Math.random()}, 100%, 50%)`
+    color: `hsl(${360 * Math.random()}, 100%, 50%)`,
+    sequenceNumber: 0
   }
 
   // Note: If we wanted to make an event to the player who connected, we would use socket.emit(...)
@@ -59,22 +60,26 @@ io.on('connection', (socket) => {
     io.emit('updatePlayers', backEndPlayers)
   })
 
-  // Listen to the keydown event
-  socket.on('keydown', (keyCode) => {
+  // Listen to the keydown event [Note: Using {keyCode} like so we are directly accessing the keyCode property]
+  socket.on('keydown', ({ keyCode, sequenceNumber }) => {
+    // Update the current backEnd player's sequence number
+    backEndPlayers[socket.id].sequenceNumber = sequenceNumber
+    
+    // Player Movement discrimination
     switch (keyCode) {
-      case 'KeyW':
+      case 'KeyW': // Up
       backEndPlayers[socket.id].y -= SPEED
       break
 
-    case 'KeyD':
+    case 'KeyD': // Right
       backEndPlayers[socket.id].x += SPEED
       break
 
-    case 'KeyS':
+    case 'KeyS': // Down
       backEndPlayers[socket.id].y += SPEED
       break
     
-    case 'KeyA':
+    case 'KeyA': // Left
       backEndPlayers[socket.id].x -= SPEED
       break
     }
