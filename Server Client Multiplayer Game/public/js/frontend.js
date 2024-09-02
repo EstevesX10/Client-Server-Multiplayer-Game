@@ -75,28 +75,36 @@ window.addEventListener('keydown', (event) => {
   
   switch(event.code){
     case 'KeyW':
-      // frontEndPlayers[socket.id].moveUp()
+      // Client Sided Prediction
+      // Predict Up Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend  
+      frontEndPlayers[socket.id].y -= 5
 
       // Submit the KeyW event to the backend
       socket.emit('keydown', 'KeyW')
       break
 
     case 'KeyD':
-      // frontEndPlayers[socket.id].moveRight()
+      // Client Sided Prediction
+      // Predict Rights Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
+      frontEndPlayers[socket.id].x += 5
 
       // Submit the KeyD event to the backend
       socket.emit('keydown', 'KeyD')
       break
 
     case 'KeyS':
-      // frontEndPlayers[socket.id].moveDown()
+      // Client Sided Prediction
+      // Predict Down Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
+      frontEndPlayers[socket.id].y += 5
 
       // Submit the KeyS event to the backend
       socket.emit('keydown', 'KeyS')
       break
     
     case 'KeyA':
-      // frontEndPlayers[socket.id].moveLeft()
+      // Client Sided Prediction
+      // Predict Left Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
+      frontEndPlayers[socket.id].x -= 5
 
       // Submit the KeyA event to the backend
       socket.emit('keydown', 'KeyA')
