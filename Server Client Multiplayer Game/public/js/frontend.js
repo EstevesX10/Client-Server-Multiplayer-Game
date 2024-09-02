@@ -21,13 +21,13 @@ socket.on('updatePlayers', (backEndPlayers) => {
   // Add connected players
   for (const id in backEndPlayers){
     // Iterate through all the backEndPlayers
-    const backendPlayer = backEndPlayers[id]
+    const backEndPlayer = backEndPlayers[id]
 
     // If the current backend player does not exist on the frontend
     if(!frontEndPlayers[id]){
       frontEndPlayers[id] = new Player({
-        x: backendPlayer.x,
-        y: backendPlayer.y,
+        x: backEndPlayer.x,
+        y: backEndPlayer.y,
         radius: 10, 
         color: 'hsl(0, 100%, 50%)'
       })
