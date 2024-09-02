@@ -27,8 +27,14 @@ app.get('/', (req, res) => {
 // Define the backEndPlayers Object - Information that is going to be broadcasted
 const backEndPlayers = {}
 
+// Define a backEndProjectiles Object - used to store the projectiles on the backend side
+const backEndProjectiles = {}
+
 // Create a Variable for the Speed
 const SPEED = 10
+
+// Define a global variable for the projectile IDs - help distiguish them when we want to delete them
+let projectileID = 0
 
 // Listen for a Connection Event
 // Establish connection between frontend and backend [In order to work the request must be made from the frontend]
@@ -48,6 +54,26 @@ io.on('connection', (socket) => {
   // Note: If we wanted to make an event to the player who connected, we would use socket.emit(...)
   // Broadcast the state of every player to every single client's frontend
   io.emit('updatePlayers', backEndPlayers)
+
+  // Listen for a shoot Event
+  socket.on('shoot', ({ x, y, angle }) => {
+    // Update the Projectile ID into a new unique value
+    projectileID++
+
+    // Calculte the Projectile's Velocity on the backend
+    const velocity = {
+      x: Math.cos(angle) * 5,
+      y: Math.sin(angle) * 5
+    }
+
+    // Store a new backend projectile
+    backEndProjectiles[projectileID] = {
+      x,
+      y,
+      velocity,
+      playerID: socket.id
+    }
+  })
 
   // When a user is disconnected, we call this callback function
   socket.on('disconnect', (reason) => {
