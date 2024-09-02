@@ -21,6 +21,12 @@ const frontEndPlayers = {}
 // Define a frontend projectiles Object to store the information regarding projectiles
 const frontEndProjectiles = {}
 
+// Connect Event - By default this event is triggered when the socket is created
+socket.on('connect', () =>{
+  // Transmit the window / canvas width and height to the backend
+  socket.emit('initCanvas', { canvasWidth: canvas.width, canvasHeight: canvas.height })
+})
+
 // Receive the updateProjectiles Event
 socket.on('updateProjectiles', (backEndProjectiles) => {
   // Loop over the backend projectiles
@@ -41,6 +47,15 @@ socket.on('updateProjectiles', (backEndProjectiles) => {
       // Update the position of the frontend projectile based on the velocity retrieved by the backend projectiles
       frontEndProjectiles[id].x += backEndProjectiles[id].velocity.x
       frontEndProjectiles[id].y += backEndProjectiles[id].velocity.y
+    }
+  }
+
+  // Remove unnecessary projectiles from the frontend
+  for (const frontEndProjectileID in frontEndProjectiles){
+    // If the current frontend projectile does not exist on the backend, we must delete it
+    if(!backEndProjectiles[frontEndProjectileID]){
+      // Delete the projectile from the frontend
+      delete frontEndProjectiles[frontEndProjectileID]
     }
   }
 })
@@ -94,7 +109,6 @@ socket.on('updatePlayers', (backEndPlayers) => {
           duration: 0.015,
           ease: 'linear'
         })
-
       }
     }
   }

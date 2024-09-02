@@ -55,6 +55,15 @@ io.on('connection', (socket) => {
   // Broadcast the state of every player to every single client's frontend
   io.emit('updatePlayers', backEndPlayers)
 
+  // Listen to the connect event and retrieve the canvas dimensions
+  socket.on('initCanvas', ({ canvasWidth, canvasHeight }) => {
+    // Add the canvas dimensions as new properties to the backEndPlayers object
+    backEndPlayers[socket.id].canvas = {
+      width: canvasWidth,
+      height: canvasHeight
+    }
+  })
+
   // Listen for a shoot Event
   socket.on('shoot', ({ x, y, angle }) => {
     // Update the Projectile ID into a new unique value
@@ -124,6 +133,20 @@ setInterval(() => {
     
     // Update the current projectile y position
     backEndProjectiles[id].y += backEndProjectiles[id].velocity.y
+  
+    // Define a variable for the projectile radius
+    const projectileRadius = 5
+
+    // Check if the projectile goes out of the screen
+    if (
+      (backEndProjectiles[id].x - projectileRadius >= backEndPlayers[backEndProjectiles[id].playerID]?.canvas?.width) || // [Out of the Screen to the Right]
+      (backEndProjectiles[id].x + projectileRadius <= 0) || // [Out of the Screen to the Left]
+      (backEndProjectiles[id].y - projectileRadius >= backEndPlayers[backEndProjectiles[id].playerID]?.canvas?.height) || // [Out of the Screen to the Bottom]
+      (backEndProjectiles[id].y + projectileRadius <= 0) // [Out of the Screen to the Top]
+    ){
+      // Remove the projectile from the Projectiles object
+      delete backEndProjectiles[id]
+    }
   }
 
   // Update Projectiles every 15ms to the frontenc
