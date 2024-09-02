@@ -34,11 +34,11 @@ socket.on('updatePlayers', (backEndPlayers) => {
         color: backEndPlayer.color
       })
     } else { // The player already exists
-      // Update the frontEndPlayer based on the movements performed in the backend server
-      frontEndPlayers[id].x = backEndPlayer.x
-      frontEndPlayers[id].y = backEndPlayer.y
-
       if (id === socket.id){ // Call the Server Reconciliation code [Used to fix lag]
+        // Update the frontEndPlayer based on the movements performed in the backend server
+        frontEndPlayers[id].x = backEndPlayer.x
+        frontEndPlayers[id].y = backEndPlayer.y
+        
         // Get the last back end input index [index aka sequence number]
         const lastBackEndInputIndex = playerInputs.findIndex(input => {
           // Return the last sequence number / id processed in the backend server
@@ -55,6 +55,19 @@ socket.on('updatePlayers', (backEndPlayers) => {
           frontEndPlayers[id].x += input.dx
           frontEndPlayers[id].y += input.dy
         })
+      } else {
+        // Update the other frontEndPlayers based on the movements performed in the backend server
+        // frontEndPlayers[id].x = backEndPlayer.x
+        // frontEndPlayers[id].y = backEndPlayer.y
+
+        // Interpolate the other player's position
+        gsap.to(frontEndPlayers[id], { // We define the initial position and the position to which we want to interpolate as in: x [start] : backEndPlayer.x [Where we want to interpolate to]
+          x: backEndPlayer.x,
+          y: backEndPlayer.y,
+          duration: 0.015,
+          ease: 'linear'
+        })
+
       }
     }
   }
