@@ -66,6 +66,64 @@ function animate() {
 // Animation Loop
 animate()
 
+// Define a constant for the keys the user is currently pressing down
+const keys = {
+  w : {
+    pressed: false
+  },
+  a : {
+    pressed: false
+  },
+  s : {
+    pressed: false
+  },
+  d : {
+    pressed: false
+  }
+}
+
+// Create a Variable for the Speed
+const SPEED = 10
+
+// Use a frontEnd SetInterval
+setInterval(() => {
+  if (keys.w.pressed){
+    // Client Sided Prediction
+    // Predict Up Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend  
+    frontEndPlayers[socket.id].y -= SPEED
+
+    // Submit the KeyW event to the backend
+    socket.emit('keydown', 'KeyW')
+  }
+
+  if (keys.a.pressed){
+    // Client Sided Prediction
+    // Predict Left Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
+    frontEndPlayers[socket.id].x -= SPEED
+
+    // Submit the KeyA event to the backend
+    socket.emit('keydown', 'KeyA')
+  }
+
+  if (keys.s.pressed){
+    // Client Sided Prediction
+    // Predict Down Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
+    frontEndPlayers[socket.id].y += SPEED
+
+    // Submit the KeyS event to the backend
+    socket.emit('keydown', 'KeyS')
+  }
+
+  if (keys.d.pressed){
+    // Client Sided Prediction
+    // Predict Rights Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
+    frontEndPlayers[socket.id].x += SPEED
+
+    // Submit the KeyD event to the backend
+    socket.emit('keydown', 'KeyD')
+  }
+}, 15)
+
 // Add a Event Listener to when a key is pressed
 window.addEventListener('keydown', (event) => {
   // To prevent frontEnd errors when the player has yet to be created
@@ -75,39 +133,54 @@ window.addEventListener('keydown', (event) => {
   
   switch(event.code){
     case 'KeyW':
-      // Client Sided Prediction
-      // Predict Up Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend  
-      frontEndPlayers[socket.id].y -= 5
-
-      // Submit the KeyW event to the backend
-      socket.emit('keydown', 'KeyW')
+      // Update the W key object
+      keys.w.pressed = true
       break
 
-    case 'KeyD':
-      // Client Sided Prediction
-      // Predict Rights Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
-      frontEndPlayers[socket.id].x += 5
-
-      // Submit the KeyD event to the backend
-      socket.emit('keydown', 'KeyD')
+    case 'KeyA':
+      // Update the A key object
+      keys.a.pressed = true
       break
 
     case 'KeyS':
-      // Client Sided Prediction
-      // Predict Down Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
-      frontEndPlayers[socket.id].y += 5
+      // Update the S key object
+      keys.s.pressed = true
+      break
 
-      // Submit the KeyS event to the backend
-      socket.emit('keydown', 'KeyS')
+    case 'KeyD':
+      // Update the D key object
+      keys.d.pressed = true
+      break
+  }
+})
+
+// Add a Event Listener to when a key is no longer pressed
+window.addEventListener('keyup', (event) => {
+  
+  // To prevent frontEnd errors when the player has yet to be created
+  if (!frontEndPlayers[socket.id]){
+    return
+  }
+  
+  switch(event.code){
+    case 'KeyW':
+      // Update the W key object
+      keys.w.pressed = false
       break
     
     case 'KeyA':
-      // Client Sided Prediction
-      // Predict Left Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
-      frontEndPlayers[socket.id].x -= 5
+      // Update the A key object
+      keys.a.pressed = false
+      break
 
-      // Submit the KeyA event to the backend
-      socket.emit('keydown', 'KeyA')
+    case 'KeyS':
+      // Update the S key object
+      keys.s.pressed = false
+      break
+    
+    case 'KeyD':
+      // Update the D key object
+      keys.d.pressed = false
       break
   }
 })
