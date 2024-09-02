@@ -33,6 +33,10 @@ socket.on('updatePlayers', (backEndPlayers) => {
         radius: 10, 
         color: backEndPlayer.color
       })
+    } else { // The player already exists
+      // Update the frontEndPlayer based on the movements performed in the backend server
+      frontEndPlayers[id].x = backEndPlayer.x
+      frontEndPlayers[id].y = backEndPlayer.y
     }
   }
 
@@ -61,3 +65,41 @@ function animate() {
 
 // Animation Loop
 animate()
+
+// Add a Event Listener to when a key is pressed
+window.addEventListener('keydown', (event) => {
+  // To prevent frontEnd errors when the player has yet to be created
+  if (!frontEndPlayers[socket.id]){
+    return
+  }
+  
+  switch(event.code){
+    case 'KeyW':
+      // frontEndPlayers[socket.id].moveUp()
+
+      // Submit the KeyW event to the backend
+      socket.emit('keydown', 'KeyW')
+      break
+
+    case 'KeyD':
+      // frontEndPlayers[socket.id].moveRight()
+
+      // Submit the KeyD event to the backend
+      socket.emit('keydown', 'KeyD')
+      break
+
+    case 'KeyS':
+      // frontEndPlayers[socket.id].moveDown()
+
+      // Submit the KeyS event to the backend
+      socket.emit('keydown', 'KeyS')
+      break
+    
+    case 'KeyA':
+      // frontEndPlayers[socket.id].moveLeft()
+
+      // Submit the KeyA event to the backend
+      socket.emit('keydown', 'KeyA')
+      break
+  }
+})

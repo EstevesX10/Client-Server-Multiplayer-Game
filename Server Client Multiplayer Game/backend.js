@@ -56,8 +56,36 @@ io.on('connection', (socket) => {
     io.emit('updatePlayers', backEndPlayers)
   })
 
+  // Listen to the keydown event
+  socket.on('keydown', (keyCode) => {
+    switch (keyCode) {
+      case 'KeyW':
+      backEndPlayers[socket.id].y -= 5
+      break
+
+    case 'KeyD':
+      backEndPlayers[socket.id].x += 5
+      break
+
+    case 'KeyS':
+      backEndPlayers[socket.id].y += 5
+      break
+    
+    case 'KeyA':
+      backEndPlayers[socket.id].x -= 5
+      break
+    }
+  })
+
   console.log(backEndPlayers)
 })
+
+// Create a tick rate [ticker functionality] to prevent the server from clogging from the amount of requests
+setInterval(() => {
+  // Update Players every 15ms
+  io.emit('updatePlayers', backEndPlayers)
+}, 15)
+
 
 // Listening to Sever Events
 server.listen(port, () => {
