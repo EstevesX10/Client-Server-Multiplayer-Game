@@ -25,7 +25,12 @@ socket.on('updatePlayers', (backendPlayers) => {
 
     // If the current backend player does not exist on the frontend
     if(!frontendPlayers[id]){
-      frontendPlayers[id] = new Player(backendPlayer.x, backendPlayer.y, 10, 'hsl(0, 100%, 50%)')
+      frontendPlayers[id] = new Player({
+        x: backendPlayer.x,
+        y: backendPlayer.y,
+        radius: 10, 
+        color: 'hsl(0, 100%, 50%)'
+      })
     }
   }
 
