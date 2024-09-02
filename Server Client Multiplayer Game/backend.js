@@ -114,12 +114,24 @@ io.on('connection', (socket) => {
   console.log(backEndPlayers)
 })
 
+// BackEnd Ticker
 // Create a tick rate [ticker functionality] to prevent the server from clogging from the amount of requests
 setInterval(() => {
-  // Update Players every 15ms
+  // Update Projectile positions
+  for (const id in backEndProjectiles){
+    // Update the current projectile x position
+    backEndProjectiles[id].x += backEndProjectiles[id].velocity.x
+    
+    // Update the current projectile y position
+    backEndProjectiles[id].y += backEndProjectiles[id].velocity.y
+  }
+
+  // Update Projectiles every 15ms to the frontenc
+  io.emit('updateProjectiles', backEndProjectiles)
+
+  // Update Players every 15ms to the frontenc
   io.emit('updatePlayers', backEndPlayers)
 }, 15)
-
 
 // Listening to Sever Events
 server.listen(port, () => {

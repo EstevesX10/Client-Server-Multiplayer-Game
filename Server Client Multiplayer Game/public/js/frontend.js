@@ -18,8 +18,32 @@ const y = canvas.height / 2
 // Define a frontend players object to render all the players onto the screen
 const frontEndPlayers = {}
 
-// Define a frontend projectiles Array to store the information regarding projectiles
-const frontEndProjectiles = []
+// Define a frontend projectiles Object to store the information regarding projectiles
+const frontEndProjectiles = {}
+
+// Receive the updateProjectiles Event
+socket.on('updateProjectiles', (backEndProjectiles) => {
+  // Loop over the backend projectiles
+  for (const id in backEndProjectiles){
+    // Grab current projectile
+    const backEndProjectile = backEndProjectiles[id]
+
+    // If the current backEndProjectile does not exist in the frontend, then we ought to add it
+    if (!frontEndProjectiles[id]){
+      frontEndProjectiles[id] = new Projectile({
+        x: backEndProjectile.x,
+        y: backEndProjectile.y,
+        radius: 5,
+        color: frontEndPlayers[backEndProjectile.playerID]?.color,
+        velocity: backEndProjectile.velocity
+      })
+    } else { // The Projectile already exists
+      // Update the position of the frontend projectile based on the velocity retrieved by the backend projectiles
+      frontEndProjectiles[id].x += backEndProjectiles[id].velocity.x
+      frontEndProjectiles[id].y += backEndProjectiles[id].velocity.y
+    }
+  }
+})
 
 // Receive the updatePlayers Event
 socket.on('updatePlayers', (backEndPlayers) => {
@@ -96,6 +120,21 @@ function animate() {
     const frontEndPlayer = frontEndPlayers[id]
     frontEndPlayer.draw()
   }
+
+  // Display all the Projectiles
+  for (const id in frontEndProjectiles){
+    const frontEndProjectile = frontEndProjectiles[id]
+    frontEndProjectile.draw()
+  }
+
+  // Loop through the projectiles [from the back to the front of the array] array to display them onto the screen
+  // for (let i = frontEndProjectiles.length - 1; i >= 0; i--){
+  //   // Grab the current projectile
+  //   const frontEndProjectile = frontEndProjectiles[i]
+
+  //   // Update the projectile on the screen
+  //   frontEndProjectile.update()
+  // }
 }
 
 // Animation Loop
