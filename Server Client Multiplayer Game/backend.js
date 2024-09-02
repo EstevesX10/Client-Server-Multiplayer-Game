@@ -37,7 +37,8 @@ io.on('connection', (socket) => {
   // Create the property of socket.id on the backEndPlayers object
   backEndPlayers[socket.id] = {
     x:500 * Math.random(),
-    y:500 * Math.random()
+    y:500 * Math.random(),
+    color: `hsl(${360 * Math.random()}, 100%, 50%)`
   }
 
   // Note: If we wanted to make an event to the player who connected, we would use socket.emit(...)
