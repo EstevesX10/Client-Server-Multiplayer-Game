@@ -5,6 +5,7 @@ addEventListener('click', (event) => {
     y: frontEndPlayers[socket.id].y
   }
 
+  // Calculate the angle in which the projectile is to be sent
   const angle = Math.atan2(
     event.clientY * window.devicePixelRatio - playerPosition.y,
     event.clientX * window.devicePixelRatio - playerPosition.x
@@ -16,14 +17,4 @@ addEventListener('click', (event) => {
     y: playerPosition.y,
     angle: angle
   })
-
-//   frontEndProjectiles.push(
-//     new Projectile({
-//         x: playerPosition.x,
-//         y: playerPosition.y, 
-//         radius: 5, 
-//         color: 'white',
-//         velocity: velocity
-//     })
-//   )
 })
