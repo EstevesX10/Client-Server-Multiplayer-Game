@@ -7,6 +7,9 @@ class Player {
   }
 
   draw() {
+    ctx.save()
+    ctx.shadowColor = this.color
+    ctx.shadowBlur = 10
     ctx.beginPath()
     ctx.arc(
       this.x,
@@ -18,6 +21,7 @@ class Player {
     )
     ctx.fillStyle = this.color
     ctx.fill()
+    ctx.restore()
   }
 }
 
