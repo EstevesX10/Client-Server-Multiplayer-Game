@@ -35,7 +35,7 @@ const backEndPlayers = {}
 const backEndProjectiles = {}
 
 // Create a Variable for the Speed
-const SPEED = 10
+const SPEED = 7
 
 // Create a Variable for the Radius
 const RADIUS = 10
@@ -113,6 +113,11 @@ io.on('connection', (socket) => {
     // Get the backendplayer
     const backEndPlayer = backEndPlayers[socket.id]
     
+    // If the player has been eliminated then we do not want to execute the code bellow
+    if (!backEndPlayers[socket.id]){
+      return
+    }
+
     // Update the current backEnd player's sequence number
     backEndPlayers[socket.id].sequenceNumber = sequenceNumber
     

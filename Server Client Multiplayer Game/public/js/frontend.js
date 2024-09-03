@@ -24,6 +24,12 @@ const frontEndPlayers = {}
 // Define a frontend projectiles Object to store the information regarding projectiles
 const frontEndProjectiles = {}
 
+// Define a variable that determines whether or not to use Client Side Prediction
+const clientSidePrediction = true
+
+// Define the Interpolation Rate
+const interpolationRate = 0.5
+
 // Receive the updateProjectiles Event
 socket.on('updateProjectiles', (backEndProjectiles) => {
   // Loop over the backend projectiles
@@ -116,11 +122,13 @@ socket.on('updatePlayers', (backEndPlayers) => {
         parentDiv.appendChild(div)
       })
 
-      if (id === socket.id){ // Call the Server Reconciliation code [Used to fix lag]
-        // Update the frontEndPlayer based on the movements performed in the backend server
-        frontEndPlayers[id].x = backEndPlayer.x
-        frontEndPlayers[id].y = backEndPlayer.y
-        
+      // Get target position of the player
+      frontEndPlayers[id].targetPosition = {
+        x: backEndPlayer.x,
+        y: backEndPlayer.y
+      }
+
+      if (id === socket.id){ // Call the Server Reconciliation code [Used to fix lag]        
         // Get the last back end input index [index aka sequence number]
         const lastBackEndInputIndex = playerInputs.findIndex(input => {
           // Return the last sequence number / id processed in the backend server
@@ -133,21 +141,9 @@ socket.on('updatePlayers', (backEndPlayers) => {
         }
 
         // Perform the remaining events
-        playerInputs.forEach(input => {
-          frontEndPlayers[id].x += input.dx
-          frontEndPlayers[id].y += input.dy
-        })
-      } else {
-        // Update the other frontEndPlayers based on the movements performed in the backend server
-        // frontEndPlayers[id].x = backEndPlayer.x
-        // frontEndPlayers[id].y = backEndPlayer.y
-
-        // Interpolate the other player's position
-        gsap.to(frontEndPlayers[id], { // We define the initial position and the position to which we want to interpolate as in: x [start] : backEndPlayer.x [Where we want to interpolate to]
-          x: backEndPlayer.x,
-          y: backEndPlayer.y,
-          duration: 0.015,
-          ease: 'linear'
+        playerInputs.forEach((input) => {
+          frontEndPlayers[id].targetPosition.x += input.dx
+          frontEndPlayers[id].targetPosition.y += input.dy
         })
       }
     }
@@ -181,7 +177,15 @@ function animate() {
   
   // Display all the Players
   for (const id in frontEndPlayers){
+    // Get current frontEndPlayer
     const frontEndPlayer = frontEndPlayers[id]
+
+    // If the current player has a target Position property
+    if (frontEndPlayer.targetPosition){
+      // Interpolate the current position to the target based on a interpolation rate
+      frontEndPlayers[socket.id].x += (frontEndPlayers[socket.id].targetPosition.x - frontEndPlayers[socket.id].x) * interpolationRate
+      frontEndPlayers[socket.id].y += (frontEndPlayers[socket.id].targetPosition.y - frontEndPlayers[socket.id].y) * interpolationRate
+    }
     frontEndPlayer.draw()
   }
 
@@ -212,7 +216,7 @@ const keys = {
 }
 
 // Create a Variable for the Speed
-const SPEED = 10
+const SPEED = 7
 
 // Define the players inputs as a Array
 const playerInputs = []
@@ -229,10 +233,12 @@ setInterval(() => {
     // Add the input to the playerInputs Array (The current key press counter and the velocity in both x and y axis)
     playerInputs.push({ sequenceNumber, dx: 0, dy: -SPEED })
 
-    // Client Sided Prediction
-    // Predict Up Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend  
-    frontEndPlayers[socket.id].y -= SPEED
-
+    if (clientSidePrediction){
+      // Client Sided Prediction
+      // Predict Up Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend  
+      frontEndPlayers[socket.id].y -= SPEED
+    }
+    
     // Submit the KeyW event to the backend
     socket.emit('keydown', { keyCode: 'KeyW', sequenceNumber })
   }
@@ -244,9 +250,11 @@ setInterval(() => {
     // Add the input to the playerInputs Array (The current key press counter and the velocity in both x and y axis)
     playerInputs.push({ sequenceNumber, dx: -SPEED, dy: 0 })
 
-    // Client Sided Prediction
-    // Predict Left Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
-    frontEndPlayers[socket.id].x -= SPEED
+    if (clientSidePrediction){
+      // Client Sided Prediction
+      // Predict Left Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
+      frontEndPlayers[socket.id].x -= SPEED
+    }
 
     // Submit the KeyA event to the backend
     socket.emit('keydown', { keyCode: 'KeyA', sequenceNumber })
@@ -259,9 +267,11 @@ setInterval(() => {
     // Add the input to the playerInputs Array (The current key press counter and the velocity in both x and y axis)
     playerInputs.push({ sequenceNumber, dx: 0, dy: SPEED })
 
-    // Client Sided Prediction
-    // Predict Down Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
-    frontEndPlayers[socket.id].y += SPEED
+    if (clientSidePrediction){
+      // Client Sided Prediction
+      // Predict Down Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
+      frontEndPlayers[socket.id].y += SPEED
+    }
 
     // Submit the KeyS event to the backend
     socket.emit('keydown', { keyCode: 'KeyS', sequenceNumber })
@@ -274,9 +284,11 @@ setInterval(() => {
     // Add the input to the playerInputs Array (The current key press counter and the velocity in both x and y axis)
     playerInputs.push({ sequenceNumber, dx: SPEED, dy: 0 })
 
-    // Client Sided Prediction
-    // Predict Rights Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
-    frontEndPlayers[socket.id].x += SPEED
+    if (clientSidePrediction){
+      // Client Sided Prediction
+      // Predict Rights Movement [Used to fight latency] - If the values are changed, the other players remain safe since all the moves are coordinated trough the backend
+      frontEndPlayers[socket.id].x += SPEED
+    }
 
     // Submit the KeyD event to the backend
     socket.emit('keydown', { keyCode: 'KeyD', sequenceNumber })
