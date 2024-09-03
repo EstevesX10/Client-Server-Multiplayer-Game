@@ -176,8 +176,7 @@ socket.on('updatePlayers', (backEndPlayers) => {
 let animationId
 function animate() {
   animationId = requestAnimationFrame(animate)
-  ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'
-  ctx.fillRect(0, 0, canvas.width, canvas.height)
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
   
   // Display all the Players
   for (const id in frontEndPlayers){
