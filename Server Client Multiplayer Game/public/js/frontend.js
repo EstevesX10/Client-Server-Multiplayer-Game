@@ -79,6 +79,9 @@ socket.on('updatePlayers', (backEndPlayers) => {
         radius: 10, 
         color: backEndPlayer.color
       })
+      // Add the current player to the Leaderboard by adding a div for the player score to index.html file
+      document.querySelector("#playerLabels").innerHTML += `<div data-id="${id}">Player ${id}: 0</div>`
+      
     } else { // The player already exists
       if (id === socket.id){ // Call the Server Reconciliation code [Used to fix lag]
         // Update the frontEndPlayer based on the movements performed in the backend server
@@ -121,6 +124,12 @@ socket.on('updatePlayers', (backEndPlayers) => {
   for (const id in frontEndPlayers){
     // If the current frontend player does not exist on the backend, we must delete it
     if(!backEndPlayers[id]){
+      // Grab the the player div from the Leaderboard
+      const divToRemove = document.querySelector(`div[data-id="${id}"]`)
+
+      // Remove the fetched div
+      divToRemove.parentNode.removeChild(divToRemove)
+
       // Delete the player from the frontend
       delete frontEndPlayers[id]
     }
