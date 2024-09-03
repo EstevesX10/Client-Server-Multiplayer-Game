@@ -374,7 +374,7 @@ document.querySelector(
     // Emit the username to the backend when the text is submitted in the form
     socket.emit('initGame', {
       username: usernameInput,
-      canvasWidth: canvas.width, 
+      canvasWidth: canvas.width,
       canvasHeight: canvas.height
     })
   }
