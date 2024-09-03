@@ -7,8 +7,8 @@ addEventListener('click', (event) => {
 
   // Grab the player position
   const playerPosition = {
-    x: frontEndPlayers[socket.id].x,
-    y: frontEndPlayers[socket.id].y
+    x: frontEndPlayers[socket.id]?.x,
+    y: frontEndPlayers[socket.id]?.y
   }
 
   // Calculate the angle in which the projectile is to be sent
@@ -23,7 +23,6 @@ addEventListener('click', (event) => {
     y: playerPosition.y,
     angle: angle
   })
-  console.log(frontEndProjectiles)
 })
 
 // addEventListener('mousemove', (event) => {
