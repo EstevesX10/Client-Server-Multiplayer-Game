@@ -75,7 +75,7 @@ io.on('connection', (socket) => {
     // Create the property of socket.id on the backEndPlayers object
     backEndPlayers[socket.id] = {
       x:1024 * Math.random(),
-      y:576* Math.random(),
+      y:576 * Math.random(),
       color: `hsl(${360 * Math.random()}, 100%, 50%)`,
       sequenceNumber: 0,
       score: 0,
