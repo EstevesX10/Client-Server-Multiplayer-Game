@@ -24,6 +24,10 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html') // Send the index.html
 })
 
+// Define the canvas width and height
+const canvasWidth = 1024
+const canvasHeight = 576
+
 // Define the backEndPlayers Object - Information that is going to be broadcasted
 const backEndPlayers = {}
 
@@ -74,8 +78,8 @@ io.on('connection', (socket) => {
 
     // Create the property of socket.id on the backEndPlayers object
     backEndPlayers[socket.id] = {
-      x:1024 * Math.random(),
-      y:576 * Math.random(),
+      x: canvasWidth * Math.random(),
+      y: canvasHeight * Math.random(),
       color: `hsl(${360 * Math.random()}, 100%, 50%)`,
       sequenceNumber: 0,
       score: 0,
@@ -106,6 +110,9 @@ io.on('connection', (socket) => {
 
   // Listen to the keydown event [Note: Using {keyCode} like so we are directly accessing the keyCode property]
   socket.on('keydown', ({ keyCode, sequenceNumber }) => {
+    // Get the backendplayer
+    const backEndPlayer = backEndPlayers[socket.id]
+    
     // Update the current backEnd player's sequence number
     backEndPlayers[socket.id].sequenceNumber = sequenceNumber
     
@@ -127,9 +134,28 @@ io.on('connection', (socket) => {
       backEndPlayers[socket.id].x -= SPEED
       break
     }
-  })
 
-  console.log(backEndPlayers)
+    // Get the sides of the player after performing a move
+    const playerSides = {
+      left: backEndPlayer.x - backEndPlayer.radius,
+      right: backEndPlayer.x + backEndPlayer.radius,
+      top: backEndPlayer.y - backEndPlayer.radius,
+      bottom: backEndPlayer.y + backEndPlayer.radius
+    }
+
+    if (playerSides.left < 0){ // Left Border
+      backEndPlayers[socket.id].x = backEndPlayer.radius
+    }
+    if (playerSides.right > canvasWidth){ // Right Border
+      backEndPlayers[socket.id].x = canvasWidth - backEndPlayer.radius
+    }
+    if (playerSides.top < 0){ // Top Border
+      backEndPlayers[socket.id].y = backEndPlayer.radius
+    }
+    if (playerSides.bottom > canvasHeight){ // Bottom Border
+      backEndPlayers[socket.id].y = canvasHeight - backEndPlayer.radius
+    }
+  })
 })
 
 // BackEnd Ticker
