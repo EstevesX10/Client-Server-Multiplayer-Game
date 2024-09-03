@@ -18,7 +18,7 @@ class Player {
     ctx.fillStyle = this.color
 
     // Set the stroke color for the text (border color)
-    {ctx.strokeStyle = 'black'}
+    ctx.strokeStyle = 'black'
 
     // Set the width of the border
     ctx.lineWidth = 2
