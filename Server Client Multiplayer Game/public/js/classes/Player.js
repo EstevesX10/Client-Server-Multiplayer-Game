@@ -12,11 +12,20 @@ class Player {
     ctx.font = '12px sans-serif'
 
     // Measure the width of the username text
-    const textWidth = ctx.measureText(this.username).width;
+    const textWidth = ctx.measureText(this.username).width
     
     // Set the fill color for the text
-    ctx.fillStyle = 'white'
-    
+    ctx.fillStyle = this.color
+
+    // Set the stroke color for the text (border color)
+    {ctx.strokeStyle = 'black'}
+
+    // Set the width of the border
+    ctx.lineWidth = 2
+
+    // Draw the text outline
+    ctx.strokeText(this.username, this.x - textWidth / 2, this.y + 30)
+
     // Draw the username text
     ctx.fillText(this.username, this.x - textWidth / 2, this.y + 30)
     
