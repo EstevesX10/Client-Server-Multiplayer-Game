@@ -70,7 +70,8 @@ socket.on('updatePlayers', (backEndPlayers) => {
         x: backEndPlayer.x,
         y: backEndPlayer.y,
         radius: 10, 
-        color: backEndPlayer.color
+        color: backEndPlayer.color,
+        username: backEndPlayer.username
       })
 
       // Add the current player to the Leaderboard by adding a div for the player score to index.html file

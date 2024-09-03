@@ -1,15 +1,33 @@
 class Player {
-  constructor({ x, y, radius, color }) {
+  constructor({ x, y, radius, color, username }) {
     this.x = x
     this.y = y
     this.radius = radius
     this.color = color
+    this.username = username
   }
 
   draw() {
+    // Set the font for the username
+    ctx.font = '12px sans-serif'
+
+    // Measure the width of the username text
+    const textWidth = ctx.measureText(this.username).width;
+    
+    // Set the fill color for the text
+    ctx.fillStyle = 'white'
+    
+    // Draw the username text
+    ctx.fillText(this.username, this.x - textWidth / 2, this.y + 30)
+    
+    // Save the current context state
     ctx.save()
+
+    // Set up shadow properties
     ctx.shadowColor = this.color
     ctx.shadowBlur = 10
+    
+    // Draw the player's circle
     ctx.beginPath()
     ctx.arc(
       this.x,
@@ -21,6 +39,8 @@ class Player {
     )
     ctx.fillStyle = this.color
     ctx.fill()
+
+    // Restore the context to its original state
     ctx.restore()
   }
 }
