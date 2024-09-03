@@ -80,7 +80,7 @@ io.on('connection', (socket) => {
     backEndPlayers[socket.id] = {
       x: canvasWidth * Math.random(),
       y: canvasHeight * Math.random(),
-      color: `hsl(${360 * Math.random()}, 100%, 50%)`,
+      color: `hsl(${360 * Math.random()}, 100%, 75%)`,
       sequenceNumber: 0,
       score: 0,
       username: username
