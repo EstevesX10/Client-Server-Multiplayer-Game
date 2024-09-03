@@ -51,7 +51,8 @@ io.on('connection', (socket) => {
     x:500 * Math.random(),
     y:500 * Math.random(),
     color: `hsl(${360 * Math.random()}, 100%, 50%)`,
-    sequenceNumber: 0
+    sequenceNumber: 0,
+    score: 0
   }
 
   // Note: If we wanted to make an event to the player who connected, we would use socket.emit(...)
@@ -171,10 +172,16 @@ setInterval(() => {
       )
 
       // If the player and the projectile (from a different player) are touching then we ought to remove them
-      if (
+      if ( // Collision Detection
         distance < (projectileRadius + backEndPlayer.radius) && 
         backEndProjectiles[id].playerID !== playerID
       ){
+        // Check if the backend player exists
+        if (backEndPlayers[backEndProjectiles[id].playerID]){
+          // Get the player who shot the projectile and increse its score
+          backEndPlayers[backEndProjectiles[id].playerID].score++
+        }
+
         // Delete the backend projectile
         delete backEndProjectiles[id]
 

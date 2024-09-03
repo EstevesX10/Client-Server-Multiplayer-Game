@@ -79,10 +79,49 @@ socket.on('updatePlayers', (backEndPlayers) => {
         radius: 10, 
         color: backEndPlayer.color
       })
+
       // Add the current player to the Leaderboard by adding a div for the player score to index.html file
-      document.querySelector("#playerLabels").innerHTML += `<div data-id="${id}">Player ${id}: 0</div>`
+      document.querySelector(
+        "#playerLabels"
+      ).innerHTML += `<div data-id="${id}" data-score="${backEndPlayer.score}">${id}: ${backEndPlayer.score}</div>`
       
     } else { // The player already exists
+      // Get the specific div of the current player we are looping over and update the label score in the div
+      document.querySelector(
+        `div[data-id="${id}"]`
+      ).innerHTML = `${id}: ${backEndPlayer.score}`
+
+      // Update the data-score property inside the div
+      document.querySelector(
+        `div[data-id="${id}"]`
+      ).setAttribute('data-score', backEndPlayer.score)
+
+      // Grab the parent div
+      const parentDiv = document.querySelector('#playerLabels')
+
+      // Get all the child divs inside the parent one into a Array [Essencially grabbing all the players divs in the leaderboard]
+      const childDivs = Array.from(parentDiv.querySelectorAll('div'))
+
+      // Loop over all the child divs and sort all the contents within the child divs - Sort the Leaderboard scores
+      childDivs.sort((a, b) => {
+        // Grab each element data score attribute
+        const scoreA = Number(a.getAttribute('data-score'))
+        const scoreB = Number(b.getAttribute('data-score'))
+
+        // Returning the value based on descending order
+        return scoreB - scoreA
+      })
+
+      // Removed old elements [Update the frontend]
+      childDivs.forEach(div => {
+        parentDiv.removeChild(div)
+      })
+
+      // Adds sorted elements [Update the frontend]
+      childDivs.forEach(div => {
+        parentDiv.appendChild(div)
+      })
+
       if (id === socket.id){ // Call the Server Reconciliation code [Used to fix lag]
         // Update the frontEndPlayer based on the movements performed in the backend server
         frontEndPlayers[id].x = backEndPlayer.x
