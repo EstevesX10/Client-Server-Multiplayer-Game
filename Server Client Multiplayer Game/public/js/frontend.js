@@ -21,15 +21,15 @@ const frontEndPlayers = {}
 // Define a frontend projectiles Object to store the information regarding projectiles
 const frontEndProjectiles = {}
 
-// Connect Event - By default this event is triggered when the socket is created
-socket.on('connect', () =>{
-  // Transmit the window / canvas width and height to the backend
-  socket.emit('initCanvas', { 
-    canvasWidth: canvas.width,
-    canvasHeight: canvas.height,
-    devicePixelRatio
-  })
-})
+// // Connect Event - By default this event is triggered when the socket is created
+// socket.on('connect', () =>{
+//   // Transmit the window / canvas width and height to the backend
+//   socket.emit('initCanvas', { 
+//     canvasWidth: canvas.width,
+//     canvasHeight: canvas.height,
+//     devicePixelRatio
+//   })
+// })
 
 // Receive the updateProjectiles Event
 socket.on('updateProjectiles', (backEndProjectiles) => {
@@ -83,13 +83,13 @@ socket.on('updatePlayers', (backEndPlayers) => {
       // Add the current player to the Leaderboard by adding a div for the player score to index.html file
       document.querySelector(
         "#playerLabels"
-      ).innerHTML += `<div data-id="${id}" data-score="${backEndPlayer.score}">${id}: ${backEndPlayer.score}</div>`
+      ).innerHTML += `<div data-id="${id}" data-score="${backEndPlayer.score}">${backEndPlayer.username}: ${backEndPlayer.score}</div>`
       
     } else { // The player already exists
       // Get the specific div of the current player we are looping over and update the label score in the div
       document.querySelector(
         `div[data-id="${id}"]`
-      ).innerHTML = `${id}: ${backEndPlayer.score}`
+      ).innerHTML = `${backEndPlayer.username}: ${backEndPlayer.score}`
 
       // Update the data-score property inside the div
       document.querySelector(
@@ -168,6 +168,11 @@ socket.on('updatePlayers', (backEndPlayers) => {
 
       // Remove the fetched div
       divToRemove.parentNode.removeChild(divToRemove)
+
+      // Reshow the interface if we got eliminated from the game
+      if (id === socket.id){
+        document.querySelector('#usernameForm').style.display = 'block'
+      }
 
       // Delete the player from the frontend
       delete frontEndPlayers[id]
@@ -352,5 +357,30 @@ window.addEventListener('keyup', (event) => {
       // Update the D key object
       keys.d.pressed = false
       break
+  }
+})
+
+// Add a event listener when someone interacts with the form to input a username
+document.querySelector(
+  '#usernameForm'
+).addEventListener('submit', (event) => {
+  // Prevent the default behaviour of the element this event is currentlt being fired on
+  event.preventDefault()
+
+  // Grab the input element
+  const usernameInput = document.querySelector('#usernameInput').value
+
+  // We only add a player if a valid username was given
+  if (usernameInput){
+    // Hide the form once we submit a form
+    document.querySelector('#usernameForm').style.display = 'none'
+
+    // Emit the username to the backend when the text is submitted in the form
+    socket.emit('initGame', {
+      username: usernameInput,
+      canvasWidth: canvas.width, 
+      canvasHeight: canvas.height, 
+      devicePixelRatio
+    })
   }
 })

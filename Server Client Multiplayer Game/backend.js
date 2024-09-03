@@ -44,35 +44,9 @@ let projectileID = 0
 io.on('connection', (socket) => {
   console.log('A User connected')
 
-  // Populate the backEndPlayers Object
-
-  // Create the property of socket.id on the backEndPlayers object
-  backEndPlayers[socket.id] = {
-    x:500 * Math.random(),
-    y:500 * Math.random(),
-    color: `hsl(${360 * Math.random()}, 100%, 50%)`,
-    sequenceNumber: 0,
-    score: 0
-  }
-
   // Note: If we wanted to make an event to the player who connected, we would use socket.emit(...)
   // Broadcast the state of every player to every single client's frontend
   io.emit('updatePlayers', backEndPlayers)
-
-  // Listen to the connect event and retrieve the canvas dimensions
-  socket.on('initCanvas', ({ canvasWidth, canvasHeight, devicePixelRatio}) => {
-    // Add the canvas dimensions as new properties to the backEndPlayers object
-    backEndPlayers[socket.id].canvas = {
-      width: canvasWidth,
-      height: canvasHeight
-    }
-
-    // Add the player radius
-    backEndPlayers[socket.id].radius = RADIUS
-    if (devicePixelRatio > 1){
-      backEndPlayers[socket.id].radius = 2 * RADIUS
-    }
-  })
 
   // Listen for a shoot Event
   socket.on('shoot', ({ x, y, angle }) => {
@@ -91,6 +65,34 @@ io.on('connection', (socket) => {
       y,
       velocity,
       playerID: socket.id
+    }
+  })
+
+  // Listen for the username submission from the frontend
+  socket.on('initGame', ({ username, canvasWidth, canvasHeight, devicePixelRatio }) => {
+    // Populate the backEndPlayers Object
+
+    // Create the property of socket.id on the backEndPlayers object
+    backEndPlayers[socket.id] = {
+      x:500 * Math.random(),
+      y:500 * Math.random(),
+      color: `hsl(${360 * Math.random()}, 100%, 50%)`,
+      sequenceNumber: 0,
+      score: 0,
+      username: username
+    }
+
+    // Initialize the Canvas
+    // Add the canvas dimensions as new properties to the backEndPlayers object
+    backEndPlayers[socket.id].canvas = {
+      width: canvasWidth,
+      height: canvasHeight
+    }
+
+    // Add the player radius
+    backEndPlayers[socket.id].radius = RADIUS
+    if (devicePixelRatio > 1){
+      backEndPlayers[socket.id].radius = 2 * RADIUS
     }
   })
 
