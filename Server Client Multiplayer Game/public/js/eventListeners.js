@@ -18,3 +18,21 @@ addEventListener('click', (event) => {
     angle: angle
   })
 })
+
+addEventListener('mousemove', (event) => {
+    // Grab the player position
+    const playerPosition = {
+        x: frontEndPlayers[socket.id].x,
+        y: frontEndPlayers[socket.id].y
+    }
+
+    // Grab current mouse position
+    const mousePosition = {
+        x: event.clientX * window.devicePixelRatio - playerPosition.x,
+        y: event.clientY * window.devicePixelRatio - playerPosition.y
+    }
+
+    // Submit a event to control the player's orientation [When using a ship]
+
+    // console.log(mousePosition)
+})
