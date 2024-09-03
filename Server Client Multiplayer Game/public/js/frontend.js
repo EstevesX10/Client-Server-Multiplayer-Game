@@ -9,8 +9,11 @@ const scoreEl = document.querySelector('#scoreEl')
 
 const devicePixelRatio = window.devicePixelRatio || 1
 
-canvas.width = innerWidth * devicePixelRatio
-canvas.height = innerHeight * devicePixelRatio
+canvas.width = 1024 * devicePixelRatio
+canvas.height = 576 * devicePixelRatio
+
+// Scale the canvas dimenesions by devicePixelRatio
+ctx.scale(devicePixelRatio, devicePixelRatio)
 
 const x = canvas.width / 2
 const y = canvas.height / 2
@@ -20,16 +23,6 @@ const frontEndPlayers = {}
 
 // Define a frontend projectiles Object to store the information regarding projectiles
 const frontEndProjectiles = {}
-
-// // Connect Event - By default this event is triggered when the socket is created
-// socket.on('connect', () =>{
-//   // Transmit the window / canvas width and height to the backend
-//   socket.emit('initCanvas', { 
-//     canvasWidth: canvas.width,
-//     canvasHeight: canvas.height,
-//     devicePixelRatio
-//   })
-// })
 
 // Receive the updateProjectiles Event
 socket.on('updateProjectiles', (backEndProjectiles) => {
@@ -197,15 +190,6 @@ function animate() {
     const frontEndProjectile = frontEndProjectiles[id]
     frontEndProjectile.draw()
   }
-
-  // Loop through the projectiles [from the back to the front of the array] array to display them onto the screen
-  // for (let i = frontEndProjectiles.length - 1; i >= 0; i--){
-  //   // Grab the current projectile
-  //   const frontEndProjectile = frontEndProjectiles[i]
-
-  //   // Update the projectile on the screen
-  //   frontEndProjectile.update()
-  // }
 }
 
 // Animation Loop
@@ -379,8 +363,7 @@ document.querySelector(
     socket.emit('initGame', {
       username: usernameInput,
       canvasWidth: canvas.width, 
-      canvasHeight: canvas.height, 
-      devicePixelRatio
+      canvasHeight: canvas.height
     })
   }
 })

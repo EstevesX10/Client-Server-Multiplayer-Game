@@ -1,4 +1,10 @@
 addEventListener('click', (event) => {
+  // Get the canvas
+  const canvas = document.querySelector('canvas')
+  
+  // Get the offset margins of the canvas in order to update the coordenates management
+  const { top, left } = canvas.getBoundingClientRect()
+
   // Grab the player position
   const playerPosition = {
     x: frontEndPlayers[socket.id].x,
@@ -7,8 +13,8 @@ addEventListener('click', (event) => {
 
   // Calculate the angle in which the projectile is to be sent
   const angle = Math.atan2(
-    event.clientY * window.devicePixelRatio - playerPosition.y,
-    event.clientX * window.devicePixelRatio - playerPosition.x
+    event.clientY - top - playerPosition.y,
+    event.clientX - left - playerPosition.x
   )
 
   // Submit the shoot event to the backend
@@ -17,6 +23,7 @@ addEventListener('click', (event) => {
     y: playerPosition.y,
     angle: angle
   })
+  console.log(frontEndProjectiles)
 })
 
 // addEventListener('mousemove', (event) => {

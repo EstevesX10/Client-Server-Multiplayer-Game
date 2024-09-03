@@ -69,7 +69,7 @@ io.on('connection', (socket) => {
   })
 
   // Listen for the username submission from the frontend
-  socket.on('initGame', ({ username, canvasWidth, canvasHeight, devicePixelRatio }) => {
+  socket.on('initGame', ({ username, canvasWidth, canvasHeight }) => {
     // Populate the backEndPlayers Object
 
     // Create the property of socket.id on the backEndPlayers object
@@ -91,9 +91,6 @@ io.on('connection', (socket) => {
 
     // Add the player radius
     backEndPlayers[socket.id].radius = RADIUS
-    if (devicePixelRatio > 1){
-      backEndPlayers[socket.id].radius = 2 * RADIUS
-    }
   })
 
   // When a user is disconnected, we call this callback function
