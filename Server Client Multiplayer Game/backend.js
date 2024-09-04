@@ -99,8 +99,6 @@ io.on('connection', (socket) => {
 
   // When a user is disconnected, we call this callback function
   socket.on('disconnect', (reason) => {
-    console.log(reason)
-
     // When someone leaves, we want to make sure that it's player is deleted from the backEndPlayers object
     delete backEndPlayers[socket.id]
 
