@@ -1,3 +1,4 @@
+const { Console } = require('console')
 const express = require('express')
 const app = express()
 
@@ -36,6 +37,9 @@ const backEndProjectiles = {}
 
 // Create a Variable for the Speed
 const SPEED = 7
+
+// Define a variable for the projectile radius
+const PROJECTILE_RADIUS = 5
 
 // Create a Variable for the Radius
 const RADIUS = 10
@@ -171,16 +175,13 @@ setInterval(() => {
     
     // Update the current projectile y position
     backEndProjectiles[id].y += backEndProjectiles[id].velocity.y
-  
-    // Define a variable for the projectile radius
-    const projectileRadius = 5
 
     // Check if the projectile goes out of the screen
     if (
-      (backEndProjectiles[id].x - projectileRadius >= backEndPlayers[backEndProjectiles[id].playerID]?.canvas?.width) || // [Out of the Screen to the Right]
-      (backEndProjectiles[id].x + projectileRadius <= 0) || // [Out of the Screen to the Left]
-      (backEndProjectiles[id].y - projectileRadius >= backEndPlayers[backEndProjectiles[id].playerID]?.canvas?.height) || // [Out of the Screen to the Bottom]
-      (backEndProjectiles[id].y + projectileRadius <= 0) // [Out of the Screen to the Top]
+      (backEndProjectiles[id].x - PROJECTILE_RADIUS >= backEndPlayers[backEndProjectiles[id].playerID]?.canvas?.width) || // [Out of the Screen to the Right]
+      (backEndProjectiles[id].x + PROJECTILE_RADIUS <= 0) || // [Out of the Screen to the Left]
+      (backEndProjectiles[id].y - PROJECTILE_RADIUS >= backEndPlayers[backEndProjectiles[id].playerID]?.canvas?.height) || // [Out of the Screen to the Bottom]
+      (backEndProjectiles[id].y + PROJECTILE_RADIUS <= 0) // [Out of the Screen to the Top]
     ){
       // Remove the projectile from the Projectiles object
       delete backEndProjectiles[id]
@@ -201,7 +202,7 @@ setInterval(() => {
 
       // If the player and the projectile (from a different player) are touching then we ought to remove them
       if ( // Collision Detection
-        distance < (projectileRadius + backEndPlayer.radius) && 
+        distance < (PROJECTILE_RADIUS + backEndPlayer.radius) && 
         backEndProjectiles[id].playerID !== playerID
       ){
         // Check if the backend player exists
@@ -233,4 +234,4 @@ server.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
 
-console.log('Server did Loaded')
+console.log('Server Online!')
