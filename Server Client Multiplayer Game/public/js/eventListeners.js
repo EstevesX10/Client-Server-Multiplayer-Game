@@ -50,8 +50,8 @@ addEventListener('mousemove', (event) => {
 
     // Grab current mouse position and update the player cursor position
     frontEndPlayers[socket.id].updateCursorPosition({
-        y: event.clientY - top - playerPosition.y,
-        x: event.clientX - left - playerPosition.x
+        newCursorX: event.clientX - left - playerPosition.x,
+        newCursorY: event.clientY - top - playerPosition.y
     })
 
     console.log('BROTHER')
