@@ -28,6 +28,8 @@ addEventListener('click', (event) => {
   }
 })
 
+// PROBLEM: THE POSITION OF THE PLAYER IS NOT BEING PROPERLY UPDATED TO THE OTHER PLAYERS AS WELL AS ITS CURSOR ORIENTATION
+
 addEventListener('mousemove', (event) => {
   // If the player is already in the game
   if (frontEndPlayers[socket.id]){
@@ -44,10 +46,14 @@ addEventListener('mousemove', (event) => {
         y: frontEndPlayers[socket.id].y
     }
     
+    // Only updating the cursor position in the backend player - makes the player orient itself towards the cursor - Only works in the cients window
+
     // Grab current mouse position and update the player cursor position
     frontEndPlayers[socket.id].updateCursorPosition({
-        x: event.clientX - left - playerPosition.x,
-        y: event.clientY - top - playerPosition.y
+        y: event.clientY - top - playerPosition.y,
+        x: event.clientX - left - playerPosition.x
     })
+
+    console.log('BROTHER')
   }
 })
