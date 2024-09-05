@@ -1,3 +1,4 @@
+// Get the canvas
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
@@ -15,9 +16,6 @@ canvas.height = 576 * devicePixelRatio
 // Scale the canvas dimenesions by devicePixelRatio
 ctx.scale(devicePixelRatio, devicePixelRatio)
 
-const x = canvas.width / 2
-const y = canvas.height / 2
-
 // Define a frontend players object to render all the players onto the screen
 const frontEndPlayers = {}
 
@@ -32,6 +30,9 @@ const playerInputs = []
 
 // Defining a variable to keep track of the amount of keys that have been pressed
 let sequenceNumber = 0
+
+// Define a Variable for the Cursor Position
+let cursorPosition = {}
 
 // Define a variable that determines whether or not to use Client Side Prediction
 const clientSidePrediction = true
@@ -157,6 +158,12 @@ socket.on('updatePlayers', (backEndPlayers) => {
           frontEndPlayers[id].x += input.dx
           frontEndPlayers[id].y += input.dy
         })
+
+        // Update the current mouse position on the client side
+        frontEndPlayers[id].updateCursorPosition({
+          newCursorX: cursorPosition.x,
+          newCursorY: cursorPosition.y
+        })
       } else{ // Update the movement to the other players
         frontEndPlayers[id].x = backEndPlayer.x
         frontEndPlayers[id].y = backEndPlayer.y
@@ -185,6 +192,8 @@ socket.on('updatePlayers', (backEndPlayers) => {
   }
 })
 
+// PROBLEM: THE CURSOR ORIENTATION IS NOT BEING PROPERLY UPDATED IN OTHER WINDOWS - WHEN USING THE SHIP ICON WITH THE ENEMY PLAYERS
+
 let animationId
 function animate() {
   animationId = requestAnimationFrame(animate)
@@ -201,7 +210,11 @@ function animate() {
       frontEndPlayers[socket.id].x += (frontEndPlayers[socket.id].targetPosition.x - frontEndPlayers[socket.id].x) * interpolationRate
       frontEndPlayers[socket.id].y += (frontEndPlayers[socket.id].targetPosition.y - frontEndPlayers[socket.id].y) * interpolationRate
     }
-    frontEndPlayer.draw()
+    if (socket.id == id){
+      frontEndPlayer.drawPlayer()
+    } else {
+      frontEndPlayer.drawEnemy()
+    }
   }
 
   // Display all the Projectiles
@@ -359,6 +372,18 @@ window.addEventListener('keyup', (event) => {
       // Update the D key object
       keys.d.pressed = false
       break
+  }
+})
+
+window.addEventListener('mousemove', (event) => {
+  // If the player is already in the game
+  if (frontEndPlayers[socket.id]){
+    // Get the offset margins of the canvas in order to update the coordenates management
+    const { top, left } = canvas.getBoundingClientRect()
+    
+    // Calculating the current mouse position and saving its values
+    cursorPosition.x = event.clientX - left
+    cursorPosition.y = event.clientY - top
   }
 })
 
