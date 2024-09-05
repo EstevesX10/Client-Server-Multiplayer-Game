@@ -68,8 +68,8 @@ class Player {
     this.icon = '\uf0fb'
 
     // Initialize the cursor position
-    this.cursorX = x
-    this.cursorY = y
+    this.cursorX = 0
+    this.cursorY = 0
   }
 
   // Method to update the cursor position
@@ -86,10 +86,10 @@ class Player {
       this.cursorX)
   }
 
-  draw() {
-    // Draw the player's ship
+  drawFighterShip(){
+    
     // Save the current context state
-    ctx.save()
+    ctx.save()    
 
     // Move to the player's position
     ctx.translate(this.x, this.y)
@@ -108,9 +108,9 @@ class Player {
 
     // Restore the context to its original state
     ctx.restore()
+  }
 
-    // ------------
-
+  drawUsername(){
     // Set the font for the username
     ctx.font = '12px sans-serif'
 
@@ -141,5 +141,13 @@ class Player {
 
     // Restore the context to its original state
     ctx.restore()
+  }
+
+  draw() {
+    // Draw the players ship
+    this.drawFighterShip()
+
+    // Draw the players username
+    this.drawUsername()
   }
 }
