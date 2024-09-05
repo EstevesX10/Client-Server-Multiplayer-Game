@@ -24,6 +24,15 @@ const frontEndPlayers = {}
 // Define a frontend projectiles Object to store the information regarding projectiles
 const frontEndProjectiles = {}
 
+// Create a Variable for the Speed
+const SPEED = 7
+
+// Define the players inputs as a Array
+const playerInputs = []
+
+// Defining a variable to keep track of the amount of keys that have been pressed
+let sequenceNumber = 0
+
 // Define a variable that determines whether or not to use Client Side Prediction
 const clientSidePrediction = true
 
@@ -86,6 +95,7 @@ socket.on('updatePlayers', (backEndPlayers) => {
       ).innerHTML += `<div data-id="${id}" data-score="${backEndPlayer.score}">${backEndPlayer.username}: ${backEndPlayer.score}</div>`
       
     } else { // The player already exists
+      // Score Management
       // Get the specific div of the current player we are looping over and update the label score in the div
       document.querySelector(
         `div[data-id="${id}"]`
@@ -122,6 +132,7 @@ socket.on('updatePlayers', (backEndPlayers) => {
         parentDiv.appendChild(div)
       })
 
+      // -> Update the frontend players positions
       // Get target position of the player
       frontEndPlayers[id].targetPosition = {
         x: backEndPlayer.x,
@@ -129,23 +140,26 @@ socket.on('updatePlayers', (backEndPlayers) => {
       }
 
       // Call the Server Reconciliation code [Used to fix lag] 
-      if (id === socket.id){        
+      if (id === socket.id){ // The current player id is the same as the connection id - Found the player which is being used in the current connection
         // Get the last back end input index [index aka sequence number]
         const lastBackEndInputIndex = playerInputs.findIndex((input) => {
           // Return the last sequence number / id processed in the backend server
           return backEndPlayer.sequenceNumber === input.sequenceNumber
         })
 
-        if (lastBackEndInputIndex >= 0){
+        if (lastBackEndInputIndex > -1){
           // Splice out all the unnecessary events (Inputs: idx to start and stop removing numbers)
           playerInputs.splice(0, lastBackEndInputIndex + 1)
         }
 
         // Perform the remaining events
         playerInputs.forEach((input) => {
-          frontEndPlayers[id].targetPosition.x += input.dx
-          frontEndPlayers[id].targetPosition.y += input.dy
+          frontEndPlayers[id].x += input.dx
+          frontEndPlayers[id].y += input.dy
         })
+      } else{ // Update the movement to the other players
+        frontEndPlayers[id].x = backEndPlayer.x
+        frontEndPlayers[id].y = backEndPlayer.y
       }
     }
   }
@@ -215,15 +229,6 @@ const keys = {
     pressed: false
   }
 }
-
-// Create a Variable for the Speed
-const SPEED = 7
-
-// Define the players inputs as a Array
-const playerInputs = []
-
-// Defining a variable to keep track of the amount of keys that have been pressed
-let sequenceNumber = 0
 
 // Use a frontEnd SetInterval
 setInterval(() => {
