@@ -111,11 +111,19 @@ class Player {
     ctx.restore()
   }
 
-  draw() {
+  drawPlayer() {
     // Draw the players username
     this.drawUsername()
 
     // Draw the players ship
     this.drawFighterShip()
+  }
+
+  drawEnemy() {
+    // Draw the players username
+    this.drawUsername()
+
+    // Draw the enemy as a circle
+    this.drawCircle()
   }
 }
