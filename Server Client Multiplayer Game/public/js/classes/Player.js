@@ -20,7 +20,6 @@ class Player {
   updateCursorPosition({ newCursorX, newCursorY }) {
     this.cursorX = newCursorX
     this.cursorY = newCursorY
-    console.log('UPDATE CURSOR POSITION')
   }
 
   // Calculate the angle between the player's position and the cursor's position
@@ -117,8 +116,6 @@ class Player {
     this.drawUsername()
 
     // Draw the players ship
-    // this.drawFighterShip()
-
-    this.drawCircle()
+    this.drawFighterShip()
   }
 }
