@@ -39,19 +39,13 @@ addEventListener('mousemove', (event) => {
   
     // Get the offset margins of the canvas in order to update the coordenates management
     const { top, left } = canvas.getBoundingClientRect()
-
-    // Grab the player position
-    const playerPosition = {
-        x: frontEndPlayers[socket.id].x,
-        y: frontEndPlayers[socket.id].y
-    }
     
     // Only updating the cursor position in the backend player - makes the player orient itself towards the cursor - Only works in the cients window
 
-    // Grab current mouse position and update the player cursor position
+    // Grab and update the current mouse position
     frontEndPlayers[socket.id].updateCursorPosition({
-        newCursorX: event.clientX - left - playerPosition.x,
-        newCursorY: event.clientY - top - playerPosition.y
+        newCursorX: event.clientX - left,
+        newCursorY: event.clientY - top
     })
 
     console.log('BROTHER')
