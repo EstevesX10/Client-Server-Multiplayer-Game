@@ -113,12 +113,12 @@ socket.on('updatePlayers', (backEndPlayers) => {
       })
 
       // Removed old elements [Update the frontend]
-      childDivs.forEach(div => {
+      childDivs.forEach((div) => {
         parentDiv.removeChild(div)
       })
 
       // Adds sorted elements [Update the frontend]
-      childDivs.forEach(div => {
+      childDivs.forEach((div) => {
         parentDiv.appendChild(div)
       })
 
@@ -128,9 +128,10 @@ socket.on('updatePlayers', (backEndPlayers) => {
         y: backEndPlayer.y
       }
 
-      if (id === socket.id){ // Call the Server Reconciliation code [Used to fix lag]        
+      // Call the Server Reconciliation code [Used to fix lag] 
+      if (id === socket.id){        
         // Get the last back end input index [index aka sequence number]
-        const lastBackEndInputIndex = playerInputs.findIndex(input => {
+        const lastBackEndInputIndex = playerInputs.findIndex((input) => {
           // Return the last sequence number / id processed in the backend server
           return backEndPlayer.sequenceNumber === input.sequenceNumber
         })
@@ -181,7 +182,7 @@ function animate() {
     const frontEndPlayer = frontEndPlayers[id]
 
     // If the current player has a target Position property
-    if (frontEndPlayer.targetPosition){
+    if (frontEndPlayers[socket.id] && frontEndPlayer.targetPosition){
       // Interpolate the current position to the target based on a interpolation rate
       frontEndPlayers[socket.id].x += (frontEndPlayers[socket.id].targetPosition.x - frontEndPlayers[socket.id].x) * interpolationRate
       frontEndPlayers[socket.id].y += (frontEndPlayers[socket.id].targetPosition.y - frontEndPlayers[socket.id].y) * interpolationRate
@@ -231,7 +232,7 @@ setInterval(() => {
     sequenceNumber++
 
     // Add the input to the playerInputs Array (The current key press counter and the velocity in both x and y axis)
-    playerInputs.push({ sequenceNumber, dx: 0, dy: -SPEED })
+    playerInputs.push({ sequenceNumber, dx: 0, dy: - SPEED })
 
     if (clientSidePrediction){
       // Client Sided Prediction
@@ -248,7 +249,7 @@ setInterval(() => {
     sequenceNumber++
 
     // Add the input to the playerInputs Array (The current key press counter and the velocity in both x and y axis)
-    playerInputs.push({ sequenceNumber, dx: -SPEED, dy: 0 })
+    playerInputs.push({ sequenceNumber, dx: - SPEED, dy: 0 })
 
     if (clientSidePrediction){
       // Client Sided Prediction
@@ -366,7 +367,7 @@ document.querySelector(
   // Grab the input element
   const usernameInput = document.querySelector('#usernameInput').value
 
-  // We only add a player if a valid username was given
+  // We only add a player if a username was given
   if (usernameInput){
     // Hide the form once we submit a form
     document.querySelector('#usernameForm').style.display = 'none'
