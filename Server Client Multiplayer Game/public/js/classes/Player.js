@@ -65,29 +65,52 @@ class Player {
     this.username = username
   
     // Unicode for the "Jet Fighter Up" Font Awesome icon
-    this.icon = '\uf0fb';
+    this.icon = '\uf0fb'
 
     // Initialize the cursor position
-    this.cursorX = x;
-    this.cursorY = y;
+    this.cursorX = x
+    this.cursorY = y
   }
 
   // Method to update the cursor position
-  updateCursorPosition({ x, y }) {
-    this.cursorX = x;
-    this.cursorY = y;
-    console.log('UPDATE')
+  updateCursorPosition({ newCursorX, newCursorY }) {
+    this.cursorX = newCursorX
+    this.cursorY = newCursorY
+    console.log('UPDATE CURSOR POSITION')
   }
 
   // Calculate the angle between the player's position and the cursor's position
   calculateAngle() {
-
     return Math.atan2(
       this.cursorY,
       this.cursorX)
   }
 
   draw() {
+    // Draw the player's ship
+    // Save the current context state
+    ctx.save()
+
+    // Move to the player's position
+    ctx.translate(this.x, this.y)
+
+    // Rotate the context to point towards the cursor
+    ctx.rotate(this.calculateAngle())
+
+    // Set the font size and style
+    ctx.font = `${this.radius * 2}px FontAwesome`
+    ctx.fillStyle = this.color
+    ctx.textAlign = "center"
+    ctx.textBaseline = "middle"
+
+    // Draw the Font Awesome icon at the origin (0, 0) because we've translated the context
+    ctx.fillText(this.icon, 0, 0)
+
+    // Restore the context to its original state
+    ctx.restore()
+
+    // ------------
+
     // Set the font for the username
     ctx.font = '12px sans-serif'
 
@@ -115,28 +138,6 @@ class Player {
     // Set up shadow properties
     ctx.shadowColor = this.color
     ctx.shadowBlur = 10
-
-    // Restore the context to its original state
-    ctx.restore()
-
-    // Draw the player's circle
-    // Save the current context state
-    ctx.save()
-
-    // Move to the player's position
-    ctx.translate(this.x, this.y)
-
-    // Rotate the context to point towards the cursor
-    ctx.rotate(this.calculateAngle())
-
-    // Set the font size and style
-    ctx.font = `${this.radius * 2}px FontAwesome`
-    ctx.fillStyle = this.color
-    ctx.textAlign = "center"
-    ctx.textBaseline = "middle"
-
-    // Draw the Font Awesome icon at the origin (0, 0) because we've translated the context
-    ctx.fillText(this.icon, 0, 0)
 
     // Restore the context to its original state
     ctx.restore()
