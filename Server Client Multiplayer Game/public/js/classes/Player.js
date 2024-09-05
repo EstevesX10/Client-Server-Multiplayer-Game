@@ -82,12 +82,12 @@ class Player {
   // Calculate the angle between the player's position and the cursor's position
   calculateAngle() {
     return Math.atan2(
-      this.cursorY,
-      this.cursorX)
+      this.cursorY - this.y,
+      this.cursorX - this.x
+    )
   }
 
   drawFighterShip(){
-    
     // Save the current context state
     ctx.save()    
 
