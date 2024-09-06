@@ -17,10 +17,22 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-    background: #94a3b8;
+    background-image: url('./images/Space.gif');
     display: flex;
     align-items: center;
     justify-content: space-evenly;
+}
+
+.gameHeader {
+    top: 0;
+    position: fixed;
+    left: 0;
+    width: 100%;
+    padding: 2% 10%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 99;
 }
 
 #leaderboardSection {
@@ -28,7 +40,9 @@
     padding: 8px;
     font-size: 14px;
     user-select: none;
-    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    background-image: url('./images/stardust.png');
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .75);
 }
 
 #leaderboardTitle {
@@ -41,11 +55,15 @@
 }
 
 #gameCanvas {
+    position: relative;
     width: 1024px;
     height: 576px;
-    background-image: url('./images/Space.gif');
+    background-image: url('./images/Sky.jpg');
+    background-size: cover;
+    opacity: 1;
     border-radius: 8px;
     z-index: 1;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .75);
 }
 
 input::placeholder {
@@ -76,7 +94,7 @@ input::placeholder {
 
 .buttonSection{
     text-align: center;
-    margin-top: 8px
+    margin-top: 15px
 }
 
 .startButton{
