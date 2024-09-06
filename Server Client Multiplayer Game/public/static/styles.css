@@ -107,7 +107,7 @@ canvas {
     position: fixed;
     left: 0;
     width: 100%;
-    padding: 20px 100px;
+    padding: 3% 10%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -115,24 +115,26 @@ canvas {
 }
 
 .logo{
-    bottom: 20px;
-    font-size: 2em;
-    font-weight: 500;
+    /* bottom: 3%; */
     text-decoration: none;
     color: #fff;
     user-select: none;
+}
+
+.navigation {
+    width: 30%;
+    display: block;
+    text-align-last: justify;
 }
 
 .navigation a {
     display: inline-block;
     position: relative;
     z-index: 1;
-    top: -15px;
-    font-size: 1.1em;
+    top: 3%;
+    font-size: 1.3em;
     color: #fff;
     text-decoration: none;
-    font-weight: 500;
-    margin-left: 40px;
 }
 
 .navigation a::after {
