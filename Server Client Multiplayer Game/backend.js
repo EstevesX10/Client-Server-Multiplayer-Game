@@ -22,7 +22,12 @@ app.use(express.static('public'))
 
 // Response to the request of access to the Home Page
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/templates/index.html') // Send the index.html
+  res.sendFile(__dirname + '/public/templates/home.html') // Send the index.html
+})
+
+// Response to the request of access to the Game Page
+app.get('/Game', (req, res) => {
+  res.sendFile(__dirname + '/public/templates/game.html') // Send the index.html
 })
 
 // Define the canvas width and height
