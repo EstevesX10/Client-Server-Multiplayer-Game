@@ -36,18 +36,25 @@
 }
 
 #leaderboardSection {
-    color: #94a3b8;
+    color: white;
     padding: 8px;
     font-size: 14px;
     user-select: none;
     border-radius: 8px;
-    background-image: url('./images/stardust.png');
+    /* background-image: url('./images/stardust.png'); */
+    background-image: linear-gradient(to right, #654ea3, #eaafc8);
     box-shadow: 0 10px 30px rgba(0, 0, 0, .75);
 }
 
 #leaderboardTitle {
-    margin-bottom: 8px;
+    margin: 10px;
+    font-size: 18px;
     align-items: center;
+}
+
+#playerLabels {
+    margin-left: 8px;
+    margin-bottom: 8px;
 }
 
 #gameSection{
