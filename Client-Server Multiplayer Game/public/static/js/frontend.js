@@ -93,7 +93,7 @@ socket.on('updatePlayers', (backEndPlayers) => {
       // Add the current player to the Leaderboard by adding a div for the player score to index.html file
       document.querySelector(
         "#playerLabels"
-      ).innerHTML += `<div data-id="${id}" data-score="${backEndPlayer.score}">${backEndPlayer.username}: ${backEndPlayer.score}</div>`
+      ).innerHTML += `<div class="playerScore" data-id="${id}" data-score="${backEndPlayer.score}">${backEndPlayer.username}: ${backEndPlayer.score}</div>`
       
     } else { // The player already exists
       // Score Management
