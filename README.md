@@ -1,7 +1,7 @@
 <p>
 <div align="center">
 
-# Server Client Multiplayer Game
+# Client-Server Multiplayer Game
 </div>
 </p>
 
@@ -37,12 +37,13 @@
 
 ## Project Overview
 
-> ADD PROJECT OVERVIEW
+This project composes of a **client-server based multiplayer game** where players control ``spaceships`` in a shared universe, engaging in **real-time battles**. The ``goal`` was to create an immersive and competitive environment where ``multiple players`` can **connect**, **control their ships**, as well as partake in strategic **space combat**.
+
+It focuses on both ``frontend`` and ``backend`` **development**, with special emphasis on **efficient communication between clients and the server**, ensuring a seamless gaming experience for all players.
 
 ## Client-Server Model
 
 ### Description
-<div>
 The ``Client-Server Model`` is composed by:
 
 - A **Client** -> Sends a request to a server over a network
@@ -52,7 +53,7 @@ This model forms the ``foundation of cloud computing`` and allows developers to 
 
 ### How it Works
 
-A ``client`` is an **application that runs on a device** (such as a laptop or smartphone), while a ``server`` is a device that p**rovides services to the client**.
+A ``client`` is an **application that runs on a device** (such as a laptop or smartphone), while a ``server`` is a device that **provides services to the client**.
 
 The client and server **communicate over** a ``network``, where the **client sends requests** for data or services to the **server**, which processes these requests and then **returns the requested data or services** to the client.
 
@@ -68,13 +69,19 @@ While this model has **many benefits**, it presents some ``limitations`` that ca
 
 One of the most **significant limitations of the client/server model** is that a server can get **overloaded with requests** from clients, which can cause the server to **slow down or even crash**, resulting in ``downtime or errors``. 
 
+## Project Dependencies
+
+Before proceeding with the ``projects execution``, ensure that you thoroughly review the [Dependencies file](https://github.com/EstevesX10/_INSERT_REPOS_NAME_/blob/main/DEPENDENCIES.md). It provides a **comprehensive description** of the ``Anaconda environment``, including all required **packages** and their specific **versions**. 
+
+Moreover, some external dependencies were properly **detailed** within this file, so it's important to **follow the setup steps** carefully.
+
 ## Project Execution
 
-To start the Web Application and interact with the project, make sure to execute:
+To **start the Web Application** and interact with the project, make sure to execute:
 
     nodemon backend.js
 
-And access the [local host on port 3000](http://localhost:3000/).
+And access the [Localhost](http://localhost:3000/) on port 3000.
 
 ## Project Demo
 
