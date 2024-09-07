@@ -11,10 +11,13 @@
 
 <div align="center">
     <a>
-        <img src="https://img.shields.io/badge/Made%20with-Node.js-FEF99C?style=for-the-badge&logo=node.js&logoColor=FEF99C">
+        <img src="https://img.shields.io/badge/Made%20with-JavaScript-FEF99C?style=for-the-badge&logo=javascript&logoColor=FEF99C">
     </a>
     <a>
-        <img src="https://img.shields.io/badge/Made%20with-JavaScript-FEF99C?style=for-the-badge&logo=javascript&logoColor=FEF99C">
+        <img src="https://img.shields.io/badge/Made%20with-Socket.io-FEF99C?style=for-the-badge&logo=socketdotio&logoColor=FEF99C">
+    </a>
+    <a>
+        <img src="https://img.shields.io/badge/Made%20with-Node.js-FEF99C?style=for-the-badge&logo=node.js&logoColor=FEF99C">
     </a>
 </div>
 
