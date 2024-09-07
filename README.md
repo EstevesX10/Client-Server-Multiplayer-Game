@@ -88,7 +88,17 @@ And access the [Localhost](http://localhost:3000/) on port 3000.
 
 ## Project Demo
 
-> ADD PROJECT DEMO
+### Home Page
+
+Here's a quick look on how the Home Page of the Web Application looks like.
+
+<p align="center" width="100%">
+    <img src="./Client-Server Multiplayer Game/Assets/HomePageShowcase.gif" width="100%" height="100%" />
+</p>
+
+### Game Interface
+
+Here are two quick samples of how the game performs with two players within the environment.
 
 <div align="right">
 <sub>
