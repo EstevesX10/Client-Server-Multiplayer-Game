@@ -39,6 +39,35 @@
 
 > ADD PROJECT OVERVIEW
 
+## Client-Server Model
+
+### Description
+
+The ``Client-Server Model`` is composed by:
+
+- A **Client** -> Sends a request to a server over a network
+- A **Server** -> Processes the clients request and sends back a response 
+
+This model forms the **foundation of cloud computing** and allows developers to scale infrastructure up or down with **minimal downtime**, as well as deploy applications closer to end users.
+
+### How it Works
+
+A **client** is an application that runs on a device (such as a laptop or smartphone), while a server is a device that provides services to the client. The client and server communicate over a network, where the client sends requests for data or services to the server, which processes these requests and then returns the requested data or services to the client.
+
+The ``client/server model`` is used to access **cloud services**, such as **computing power**, **storage**, and **applications**. ``Clients`` can range from **web browsers** to **mobile apps**, and ``servers`` can include **virtual machines**, **containers**, or **serverless functions**.
+
+<p align="center" width="100%">
+    <img src="./Server Client Multiplayer Game/Assets/ClientServerModelArchitecture.png" width="50%" height="50%" />
+</p>
+
+### Limitations
+
+While this model has many benefits, it presents some limitations that can affect its performance, particularly during high traffic or demand periods.
+
+One of the most significant limitations of the client/server model is that a server can get overloaded with requests from clients, which can cause the server to slow down or even crash, resulting in downtime or errors. 
+
+However, if you use a serverless model, traffic can be re-routed to avoid overload.
+
 ## Project Execution
 
 To start the Web Application and interact with the project, make sure to execute:
