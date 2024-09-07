@@ -17,7 +17,7 @@ Firstly, let's start by **creating the NodeJS conda virtual environment**:
 
 For the next command make sure to be inside the ``Client-Server Multiplayer Game Folder`` to therefore install some other packages via ``npm`` [**Node Package Manager**].
 
-    cd ./"Server Client Multiplayer Game"
+    cd ./"Client-Server Multiplayer Game"
 
 ## Additional Packages Installation
 
