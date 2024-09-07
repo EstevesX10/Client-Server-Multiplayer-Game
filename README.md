@@ -48,11 +48,13 @@ The ``Client-Server Model`` is composed by:
 - A **Client** -> Sends a request to a server over a network
 - A **Server** -> Processes the clients request and sends back a response 
 
-This model forms the **foundation of cloud computing** and allows developers to scale infrastructure up or down with **minimal downtime**, as well as deploy applications closer to end users.
+This model forms the ``foundation of cloud computing`` and allows developers to scale infrastructure up or down with **minimal downtime**, as well as deploy applications closer to end users.
 
 ### How it Works
 
-A **client** is an application that runs on a device (such as a laptop or smartphone), while a server is a device that provides services to the client. The client and server communicate over a network, where the client sends requests for data or services to the server, which processes these requests and then returns the requested data or services to the client.
+A ``client`` is an **application that runs on a device** (such as a laptop or smartphone), while a ``server`` is a device that p**rovides services to the client**.
+
+The client and server **communicate over** a ``network``, where the **client sends requests** for data or services to the **server**, which processes these requests and then **returns the requested data or services** to the client.
 
 The ``client/server model`` is used to access **cloud services**, such as **computing power**, **storage**, and **applications**. ``Clients`` can range from **web browsers** to **mobile apps**, and ``servers`` can include **virtual machines**, **containers**, or **serverless functions**.
 
