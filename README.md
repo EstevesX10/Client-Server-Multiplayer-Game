@@ -100,6 +100,14 @@ Here's a quick look on how the Home Page of the Web Application looks like.
 
 Here are two quick samples of how the game performs with two players within the environment.
 
+<div align = "center">
+ <video src= "https://github.com/user-attachments/assets/34055293-f827-4a97-8290-40a095dfe493" />
+</div>
+     
+<div align = "center">
+ <video src= "https://github.com/user-attachments/assets/1f27cc8d-9ddc-487c-89fb-1760d3ff9bca" />
+</div>
+
 <div align="right">
 <sub>
 <!-- <sup></sup> -->
