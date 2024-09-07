@@ -11,13 +11,13 @@
 
 <div align="center">
     <a>
-        <img src="https://img.shields.io/badge/Made%20with-JavaScript-FEF99C?style=for-the-badge&logo=javascript&logoColor=FEF99C">
+        <img src="https://img.shields.io/badge/Made%20with-JavaScript-A2CEFF?style=for-the-badge&logo=javascript&logoColor=A2CEFF">
     </a>
     <a>
-        <img src="https://img.shields.io/badge/Made%20with-Socket.io-FEF99C?style=for-the-badge&logo=socketdotio&logoColor=FEF99C">
+        <img src="https://img.shields.io/badge/Made%20with-Socket.io-A2CEFF?style=for-the-badge&logo=socketdotio&logoColor=A2CEFF">
     </a>
     <a>
-        <img src="https://img.shields.io/badge/Made%20with-Node.js-FEF99C?style=for-the-badge&logo=node.js&logoColor=FEF99C">
+        <img src="https://img.shields.io/badge/Made%20with-Node.js-A2CEFF?style=for-the-badge&logo=node.js&logoColor=A2CEFF">
     </a>
 </div>
 
@@ -25,16 +25,16 @@
 
 <div align="center">
     <a href="https://github.com/EstevesX10/Client-Server-Multiplayer-Game/blob/main/LICENSE">
-        <img src="https://img.shields.io/github/license/EstevesX10/Client-Server-Multiplayer-Game?style=flat&logo=gitbook&logoColor=FEF99C&label=License&color=FEF99C">
+        <img src="https://img.shields.io/github/license/EstevesX10/Client-Server-Multiplayer-Game?style=flat&logo=gitbook&logoColor=A2CEFF&label=License&color=A2CEFF">
     </a>
     <a href="">
-        <img src="https://img.shields.io/github/repo-size/EstevesX10/Client-Server-Multiplayer-Game?style=flat&logo=googlecloudstorage&logoColor=FEF99C&logoSize=auto&label=Repository%20Size&color=FEF99C">
+        <img src="https://img.shields.io/github/repo-size/EstevesX10/Client-Server-Multiplayer-Game?style=flat&logo=googlecloudstorage&logoColor=A2CEFF&logoSize=auto&label=Repository%20Size&color=A2CEFF">
     </a>
     <a href="">
-        <img src="https://img.shields.io/github/stars/EstevesX10/Client-Server-Multiplayer-Game?style=flat&logo=adafruit&logoColor=FEF99C&logoSize=auto&label=Stars&color=FEF99C">
+        <img src="https://img.shields.io/github/stars/EstevesX10/Client-Server-Multiplayer-Game?style=flat&logo=adafruit&logoColor=A2CEFF&logoSize=auto&label=Stars&color=A2CEFF">
     </a>
     <a href="https://github.com/EstevesX10/Client-Server-Multiplayer-Game/blob/main/DEPENDENCIES.md">
-        <img src="https://img.shields.io/badge/Dependencies-DEPENDENCIES.md-FEF99C?style=flat&logo=anaconda&logoColor=FEF99C&logoSize=auto&color=FEF99C">
+        <img src="https://img.shields.io/badge/Dependencies-DEPENDENCIES.md-A2CEFF?style=flat&logo=anaconda&logoColor=A2CEFF&logoSize=auto&color=A2CEFF">
     </a>
 </div>
 
