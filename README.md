@@ -6,7 +6,7 @@
 </p>
 
 <p align="center" width="100%">
-    <img src="./Server Client Multiplayer Game/Assets/ClientServerModel.png" width="60%" height="60%" />
+    <img src="./Client-Server Multiplayer Game/Assets/ClientServerModel.png" width="60%" height="60%" />
 </p>
 
 <div align="center">
@@ -60,7 +60,7 @@ The client and server **communicate over** a ``network``, where the **client sen
 The ``client/server model`` is used to access **cloud services**, such as **computing power**, **storage**, and **applications**. ``Clients`` can range from **web browsers** to **mobile apps**, and ``servers`` can include **virtual machines**, **containers**, or **serverless functions**.
 
 <p align="center" width="100%">
-    <img src="./Server Client Multiplayer Game/Assets/ClientServerModelArchitecture.png" width="50%" height="50%" />
+    <img src="./Client-Server Multiplayer Game/Assets/ClientServerModelArchitecture.png" width="50%" height="50%" />
 </p>
 
 ### Limitations
