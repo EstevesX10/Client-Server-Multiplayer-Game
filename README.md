@@ -42,13 +42,13 @@
 ## Client-Server Model
 
 ### Description
-
+<div>
 The ``Client-Server Model`` is composed by:
 
 - A **Client** -> Sends a request to a server over a network
 - A **Server** -> Processes the clients request and sends back a response 
 
-This model forms the ``foundation of cloud computing`` and allows developers to scale infrastructure up or down with **minimal downtime**, as well as deploy applications closer to end users.
+This model forms the ``foundation of cloud computing`` and allows developers to scale infrastructure up or down with **minimal downtime**, as well as deploy applications closer to **end users**.
 
 ### How it Works
 
@@ -64,11 +64,9 @@ The ``client/server model`` is used to access **cloud services**, such as **comp
 
 ### Limitations
 
-While this model has many benefits, it presents some limitations that can affect its performance, particularly during high traffic or demand periods.
+While this model has **many benefits**, it presents some ``limitations`` that can affect its **performance**, particularly during ``high traffic`` or demand periods.
 
-One of the most significant limitations of the client/server model is that a server can get overloaded with requests from clients, which can cause the server to slow down or even crash, resulting in downtime or errors. 
-
-However, if you use a serverless model, traffic can be re-routed to avoid overload.
+One of the most **significant limitations of the client/server model** is that a server can get **overloaded with requests** from clients, which can cause the server to **slow down or even crash**, resulting in ``downtime or errors``. 
 
 ## Project Execution
 
