@@ -26,4 +26,4 @@ addEventListener('click', (event) => {
       angle: angle
     });
   }
-})
+});

@@ -23,12 +23,12 @@ app.use(express.static('public'));
 // Response to the request of access to the Home Page
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/templates/home.html'); // Send the index.html
-})
+});
 
 // Response to the request of access to the Game Page
 app.get('/Game', (req, res) => {
   res.sendFile(__dirname + '/public/templates/game.html'); // Send the index.html
-})
+});
 
 // Define the canvas width and height
 const canvasWidth = 1024;
@@ -79,7 +79,7 @@ io.on('connection', (socket) => {
       velocity,
       playerID: socket.id
     };
-  })
+  });
 
   // Listen for the username submission from the frontend
   socket.on('initGame', ({ username, canvasWidth, canvasHeight }) => {
@@ -104,7 +104,7 @@ io.on('connection', (socket) => {
 
     // Add the player radius
     backEndPlayers[socket.id].radius = RADIUS;
-  })
+  });
 
   // When a user is disconnected, we call this callback function
   socket.on('disconnect', (reason) => {
@@ -113,7 +113,7 @@ io.on('connection', (socket) => {
 
     // Call the updatePlayer event
     io.emit('updatePlayers', backEndPlayers);
-  })
+  });
 
   // Listen to the keydown event [Note: Using {keyCode} like so we are directly accessing the keyCode property]
   socket.on('keydown', ({ keyCode, sequenceNumber }) => {
@@ -167,8 +167,8 @@ io.on('connection', (socket) => {
     if (playerSides.bottom > canvasHeight){ // Bottom Border
       backEndPlayers[socket.id].y = canvasHeight - backEndPlayer.radius;
     }
-  })
-})
+  });
+});
 
 // BackEnd Ticker
 // Create a tick rate [ticker functionality] to prevent the server from clogging from the amount of requests
@@ -232,7 +232,7 @@ setInterval(() => {
 
   // Update Players every 15ms to the frontenc
   io.emit('updatePlayers', backEndPlayers);
-}, 15)
+}, 15);
 
 // Listening to Sever Events
 server.listen(port, () => {

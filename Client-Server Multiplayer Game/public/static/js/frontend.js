@@ -71,7 +71,7 @@ socket.on('updateProjectiles', (backEndProjectiles) => {
       delete frontEndProjectiles[frontEndProjectileID];
     }
   }
-})
+});
 
 // Receive the updatePlayers Event
 socket.on('updatePlayers', (backEndPlayers) => {
@@ -190,11 +190,11 @@ socket.on('updatePlayers', (backEndPlayers) => {
       delete frontEndPlayers[id];
     }
   }
-})
+});
 
 // PROBLEM: THE CURSOR ORIENTATION IS NOT BEING PROPERLY UPDATED IN OTHER WINDOWS - WHEN USING THE SHIP ICON WITH THE ENEMY PLAYERS
 
-let animationId
+let animationId;
 function animate() {
   animationId = requestAnimationFrame(animate);
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -225,7 +225,7 @@ function animate() {
 }
 
 // Animation Loop
-animate()
+animate();
 
 // Define a constant for the keys the user is currently pressing down
 const keys = {
@@ -312,7 +312,7 @@ setInterval(() => {
     // Submit the KeyD event to the backend
     socket.emit('keydown', { keyCode: 'KeyD', sequenceNumber });
   }
-}, 15)
+}, 15);
 
 // Add a Event Listener to when a key is pressed
 window.addEventListener('keydown', (event) => {
@@ -342,7 +342,7 @@ window.addEventListener('keydown', (event) => {
       keys.d.pressed = true;
       break;
   }
-})
+});
 
 // Add a Event Listener to when a key is no longer pressed
 window.addEventListener('keyup', (event) => {
@@ -373,7 +373,7 @@ window.addEventListener('keyup', (event) => {
       keys.d.pressed = false;
       break;
   }
-})
+});
 
 window.addEventListener('mousemove', (event) => {
   // If the player is already in the game
@@ -385,22 +385,22 @@ window.addEventListener('mousemove', (event) => {
     cursorPosition.x = event.clientX - left;
     cursorPosition.y = event.clientY - top;
   }
-})
+});
 
 // Add a event listener when someone interacts with the form to input a username
 document.querySelector(
   '#usernameForm'
 ).addEventListener('submit', (event) => {
   // Prevent the default behaviour of the element this event is currentlt being fired on
-  event.preventDefault()
+  event.preventDefault();
 
   // Grab the input element
-  const usernameInput = document.querySelector('#usernameInput').value
+  const usernameInput = document.querySelector('#usernameInput').value;
 
   // We only add a player if a username was given
   if (usernameInput){
     // Hide the form once we submit a form
-    document.querySelector('#usernameForm').style.display = 'none'
+    document.querySelector('#usernameForm').style.display = 'none';
 
     // Emit the username to the backend when the text is submitted in the form
     socket.emit('initGame', {
